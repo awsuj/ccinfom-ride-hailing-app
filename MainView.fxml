@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="753.0" prefWidth="726.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="New" />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem mnemonicParsing="false" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="View">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Refresh" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+   <left>
+      <VBox prefHeight="315.0" prefWidth="136.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label maxWidth="1.7976931348623157E308" text="NAVIGATION" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Dashboard" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Drivers &amp; Vehicles" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Customers" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Bookings" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Transactions" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Reports" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </left>
+   <center>
+      <TabPane prefHeight="307.0" prefWidth="545.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Dashboard">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="283.0" prefWidth="512.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <HBox prefHeight="137.0" prefWidth="510.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <TitledPane animated="false" text="Vehicle Maintenance">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Label text="Mock Text">
+                                                         <padding>
+                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Driver Income">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Label text="Mock Text">
+                                                         <padding>
+                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" text="Company Profit">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Label text="Mock Text">
+                                                         <padding>
+                                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </TitledPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView prefHeight="137.0" prefWidth="510.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" text="Date" />
+                                        <TableColumn prefWidth="75.0" text="Time" />
+                                          <TableColumn prefWidth="168.31500244140625" text="Customer" />
+                                          <TableColumn prefWidth="158.18499755859375" text="Driver" />
+                                          <TableColumn prefWidth="101.12265014648438" text="Cost" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab text="Drivers &amp; Vehicles">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.7137404580152672" orientation="VERTICAL" prefHeight="283.0" prefWidth="512.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <VBox prefHeight="631.0" prefWidth="588.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <TitledPane animated="false" prefHeight="248.0" prefWidth="526.0" text="Driver Details">
+                                            <content>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="221.0" prefWidth="495.0">
+                                                   <children>
+                                                      <GridPane layoutX="30.5" layoutY="17.5" prefHeight="148.0" prefWidth="548.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="7.0">
+                                                        <columnConstraints>
+                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.88787841796875" minWidth="10.0" prefWidth="93.59628295898438" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="402.85211181640625" minWidth="10.0" prefWidth="373.4037170410156" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                         <children>
+                                                            <Label text="Driver ID" />
+                                                            <Label text="Driver Name" GridPane.rowIndex="1" />
+                                                            <Label text="License Number" GridPane.rowIndex="2" />
+                                                            <Label text="Gender" GridPane.rowIndex="3" />
+                                                            <Label text="Age" GridPane.rowIndex="4" />
+                                                            <Label text="Address" GridPane.rowIndex="5" />
+                                                            <Label text="Tenure Length" GridPane.rowIndex="6" />
+                                                            <TextField GridPane.columnIndex="1" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                            <TextField prefHeight="26.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                            <TextField prefHeight="26.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                            <TextField prefHeight="97.0" prefWidth="374.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </AnchorPane>
+                                            </content>
+                                          </TitledPane>
+                                          <TitledPane animated="false" layoutX="20.0" layoutY="20.0" prefHeight="289.0" prefWidth="568.0" text="Vehicle Details">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="221.0" prefWidth="566.0">
+                                                   <children>
+                                                      <GridPane layoutX="35.5" layoutY="23.5" prefHeight="181.0" prefWidth="545.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="-3.0" AnchorPane.topAnchor="13.0">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.88787841796875" minWidth="10.0" prefWidth="93.59628295898438" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="402.85211181640625" minWidth="10.0" prefWidth="373.4037170410156" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <Label text="Vehicle ID" />
+                                                            <Label text="Plate Number" GridPane.rowIndex="1" />
+                                                            <Label text="Car Brand" GridPane.rowIndex="2" />
+                                                            <Label text="Model Name" GridPane.rowIndex="3" />
+                                                            <Label text="Year Model" GridPane.rowIndex="4" />
+                                                            <Label text="Color" GridPane.rowIndex="5" />
+                                                            <Label text="Fuel Type" GridPane.rowIndex="6" />
+                                                            <Label text="Year Acquired" GridPane.rowIndex="7" />
+                                                            <TextField GridPane.columnIndex="1" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                            <TextField prefHeight="26.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                            <TextField prefHeight="26.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                            <TextField prefHeight="97.0" prefWidth="374.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                            <TextField prefHeight="82.0" prefWidth="356.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </TitledPane>
+                                          <HBox alignment="TOP_CENTER">
+                                             <children>
+                                                <ButtonBar maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="455.0">
+                                                  <buttons>
+                                                      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="334.0" text="Create/Update Driver" />
+                                                      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Create/Update Vehicle" />
+                                                  </buttons>
+                                                </ButtonBar>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="147.0" prefWidth="510.0">
+                                 <children>
+                                    <TableView prefHeight="84.0" prefWidth="588.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn prefWidth="138.36752319335938" text="Driver" />
+                                        <TableColumn prefWidth="126.2965087890625" text="License Number" />
+                                          <TableColumn prefWidth="104.93548583984375" text="Plate Number" />
+                                          <TableColumn prefWidth="126.06448364257812" text="Car" />
+                                          <TableColumn minWidth="0.0" prefWidth="83.38848876953125" text="Status" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+            <Tab text="Customers">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.5381679389312977" orientation="VERTICAL" prefHeight="657.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <VBox prefHeight="631.0" prefWidth="588.0" spacing="10.0">
+                                       <children>
+                                          <TitledPane animated="false" layoutX="20.0" layoutY="20.0" prefHeight="289.0" prefWidth="568.0" text="Customer Profile">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="221.0" prefWidth="566.0">
+                                                   <children>
+                                                      <GridPane layoutX="59.5" layoutY="17.5" prefHeight="257.0" prefWidth="487.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="49.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="7.0">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.88787841796875" minWidth="10.0" prefWidth="93.59628295898438" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="402.85211181640625" minWidth="10.0" prefWidth="373.4037170410156" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <Label text="Customer ID" />
+                                                            <Label text="Name" GridPane.rowIndex="1" />
+                                                            <Label text="Gender" GridPane.rowIndex="2" />
+                                                            <Label text="Age" GridPane.rowIndex="3" />
+                                                            <Label text="Occupation" GridPane.rowIndex="4" />
+                                                            <Label text="Address" GridPane.rowIndex="5" />
+                                                            <Label text="Phone Number" GridPane.rowIndex="6" />
+                                                            <Label text="Payment Details" GridPane.rowIndex="7" />
+                                                            <TextField GridPane.columnIndex="1" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                            <TextField prefHeight="26.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                            <TextField prefHeight="26.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                            <TextField prefHeight="97.0" prefWidth="374.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                            <TextField prefHeight="82.0" prefWidth="356.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </TitledPane>
+                                          <HBox alignment="TOP_CENTER">
+                                             <children>
+                                                <ButtonBar maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="455.0">
+                                                   <buttons>
+                                                      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="334.0" text="Register Customer" />
+                                                      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Update Customer" />
+                                                   </buttons>
+                                                </ButtonBar>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView layoutX="28.0" layoutY="64.0" prefHeight="277.0" prefWidth="588.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn prefWidth="99.65409851074219" text="Booking ID" />
+                                        <TableColumn prefWidth="75.15408325195312" text="Date" />
+                                          <TableColumn prefWidth="183.84585571289062" text="Pickup" />
+                                          <TableColumn prefWidth="228.86801147460938" text="Drop Off" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Bookings">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.5366412213740458" orientation="VERTICAL" prefHeight="657.0" prefWidth="590.0">
+                           <items>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <VBox prefHeight="631.0" prefWidth="588.0" spacing="10.0">
+                                       <children>
+                                          <TitledPane animated="false" layoutX="20.0" layoutY="20.0" prefHeight="289.0" prefWidth="568.0" text="New Booking">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="221.0" prefWidth="566.0">
+                                                   <children>
+                                                      <GridPane layoutX="15.5" layoutY="4.5" prefHeight="267.0" prefWidth="528.0" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="34.0" AnchorPane.topAnchor="-6.0">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.88787841796875" minWidth="10.0" prefWidth="93.59628295898438" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="402.85211181640625" minWidth="10.0" prefWidth="373.4037170410156" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <Label text="Booking ID" />
+                                                            <Label text="Booking Date" GridPane.rowIndex="1" />
+                                                            <Label text="Booking Time" GridPane.rowIndex="2" />
+                                                            <Label text="Customer ID" GridPane.rowIndex="3" />
+                                                            <Label text="Driver ID" GridPane.rowIndex="4" />
+                                                            <Label text="Plate Number" GridPane.rowIndex="5" />
+                                                            <Label text="Pickup Point" GridPane.rowIndex="6" />
+                                                            <Label text="Dropoff Point" GridPane.rowIndex="7" />
+                                                            <Label text="Payment Mode" GridPane.rowIndex="8" />
+                                                            <TextField GridPane.columnIndex="1" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                            <TextField prefHeight="26.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                            <TextField prefHeight="26.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                            <TextField prefHeight="97.0" prefWidth="374.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                            <TextField prefHeight="82.0" prefWidth="356.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </TitledPane>
+                                          <HBox alignment="TOP_CENTER">
+                                             <children>
+                                                <ButtonBar maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="455.0">
+                                                   <buttons>
+                                                      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="334.0" text="Create Booking" />
+                                                      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Assign Driver" />
+                                                   </buttons>
+                                                </ButtonBar>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView layoutX="28.0" layoutY="64.0" prefHeight="277.0" prefWidth="588.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columns>
+                                          <TableColumn prefWidth="71.64785766601562" text="Booking ID" />
+                                          <TableColumn prefWidth="99.45004272460938" text="Customer" />
+                                          <TableColumn prefWidth="106.5499267578125" text="Driver" />
+                                          <TableColumn prefWidth="102.248291015625" text="Pickup" />
+                                          <TableColumn prefWidth="97.63446044921875" text="Dropoff" />
+                                          <TableColumn prefWidth="111.24310302734375" text="Payment Status" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </items>
+                        </SplitPane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Transactions">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.5366412213740458" orientation="VERTICAL" prefHeight="657.0" prefWidth="590.0">
+                           <items>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <VBox prefHeight="348.0" prefWidth="588.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <TitledPane animated="false" layoutX="20.0" layoutY="20.0" prefHeight="289.0" prefWidth="568.0" text="Complete Transaction">
+                                             <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="221.0" prefWidth="566.0">
+                                                   <children>
+                                                      <GridPane layoutX="37.5" layoutY="6.5" prefHeight="267.0" prefWidth="532.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="-4.0">
+                                                         <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="228.88787841796875" minWidth="10.0" prefWidth="93.59628295898438" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="402.85211181640625" minWidth="10.0" prefWidth="373.4037170410156" />
+                                                         </columnConstraints>
+                                                         <rowConstraints>
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                         </rowConstraints>
+                                                         <children>
+                                                            <Label text="Transaction ID" />
+                                                            <Label text="Booking ID" GridPane.rowIndex="1" />
+                                                            <Label text="Date" GridPane.rowIndex="2" />
+                                                            <Label text="Time" GridPane.rowIndex="3" />
+                                                            <Label text="Pickup Point" GridPane.rowIndex="4" />
+                                                            <Label text="Dropoff Point" GridPane.rowIndex="5" />
+                                                            <Label text="Cost" GridPane.rowIndex="6" />
+                                                            <Label text="Payment Method" GridPane.rowIndex="7" />
+                                                            <Label text="Status" GridPane.rowIndex="8" />
+                                                            <TextField GridPane.columnIndex="1" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                            <TextField prefHeight="26.0" prefWidth="402.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                            <TextField prefHeight="26.0" prefWidth="390.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                            <TextField prefHeight="97.0" prefWidth="374.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                            <TextField prefHeight="82.0" prefWidth="356.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                                            <Label text="Driver Rating" GridPane.rowIndex="9" />
+                                                            <TextField GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                                         </children>
+                                                      </GridPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </content>
+                                          </TitledPane>
+                                          <HBox alignment="TOP_CENTER">
+                                             <children>
+                                                <ButtonBar maxWidth="1.7976931348623157E308" prefHeight="26.0" prefWidth="455.0">
+                                                   <buttons>
+                                                      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="334.0" text="Save Transaction" />
+                                                      <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="26.0" prefWidth="168.0" text="Mark Completed" />
+                                                   </buttons>
+                                                </ButtonBar>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView layoutX="28.0" layoutY="64.0" prefHeight="277.0" prefWidth="588.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columns>
+                                          <TableColumn prefWidth="99.57200622558594" text="Transaction ID" />
+                                          <TableColumn prefWidth="71.92799377441406" text="Date" />
+                                          <TableColumn prefWidth="122.039306640625" text="Customer" />
+                                          <TableColumn prefWidth="123.96078491210938" text="Driver" />
+                                          <TableColumn prefWidth="83.155029296875" text="Cost" />
+                                          <TableColumn prefWidth="90.19439697265625" text="Status" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </items>
+                        </SplitPane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Reports">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.3534351145038168" orientation="VERTICAL" prefHeight="694.0" prefWidth="590.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <VBox alignment="TOP_CENTER" prefHeight="694.0" prefWidth="590.0" spacing="10.0">
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                       <children>
+                                          <Label text="Reports" />
+                                          <VBox alignment="TOP_CENTER" prefHeight="95.0" prefWidth="570.0" spacing="10.0">
+                                             <children>
+                                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Vehicle Maintenance Report" />
+                                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Driver Income Report" />
+                                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Driver Income Report" />
+                                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Customer Travel History Report" />
+                                                <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Company Profit Report" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="10.0" left="10.0" right="10.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                                 <children>
+                                    <TableView prefHeight="358.0" prefWidth="588.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn prefWidth="75.0" text="C1" />
+                                        <TableColumn prefWidth="75.0" text="C2" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <bottom>
+      <HBox prefHeight="15.0" prefWidth="726.0" spacing="10.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Status: READY" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </HBox>
+   </bottom>
+</BorderPane>
