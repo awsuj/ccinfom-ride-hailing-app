@@ -51,6 +51,7 @@ CREATE TABLE `booking` (
 
 LOCK TABLES `booking` WRITE;
 /*!40000 ALTER TABLE `booking` DISABLE KEYS */;
+INSERT INTO `booking` VALUES (1,'2024-12-12','07:42:00',1,'John Doe',1,'Alexander Mejia','NBK3149','Universidad ng Pilipinas','De La Salle Universe',42.5,'Paid','Credit Card',4.5),(2,'2025-11-05','08:15:00',2,'Juan Dela Cruz',2,'Mark Angelo Cruz','NDX4521','DLSU Taft Gate, Malate, Manila','SM Mall of Asia, Pasay',25,'Paid','GCash',5),(3,'2025-11-06','18:42:00',3,'Maria Santos',3,'Liza Mae Navarro','NAH3186','Ayala Malls Manila Bay, Pasay City','Solaire Manila',20,'Paid','Card',4.8),(4,'2025-11-07','22:05:00',4,'Ramon Reyes',4,'Jerome D. Alcantara','NBM7724','Glorietta 4, Makati','BGC High Street, Taguig',35,'Paid','Cash',4.6),(5,'2025-11-08','07:30:00',5,'Aira Villanueva',5,'Shiela Ann Dela Pena','NCP6409','Robinsons Manila','SM City Manila',15.5,'Paid','Maya',5);
 /*!40000 ALTER TABLE `booking` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +69,7 @@ CREATE TABLE `customer` (
   `age` int DEFAULT NULL,
   `occupation` varchar(45) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
-  `phone_number` int DEFAULT NULL,
+  `phone_number` bigint DEFAULT NULL,
   `payment_details` varchar(20) DEFAULT NULL,
   `average_rating` double DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
@@ -81,6 +82,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+INSERT INTO `customer` VALUES (1,'John Doe','Male',28,'Computer Scientist','Brgy. 105 Vitas, Las Piñas, Metro Manila',9958554011,'Cash',4.5),(2,'Juan Dela Cruz','Male',24,'Student','Brgy. 715, Malate, Manila, NCR',9174567890,'GCash',4.6),(3,'Maria Santos','Female',31,'Nurse','Brgy. Little Baguio, San Juan City, NCR',9223456781,'Credit Card',4.9),(4,'Ramon Reyes','Male',43,'Family Driver','Brgy. Bangkal, Makati City, NCR',9052345678,'Cash',4.1),(5,'Aira Villanueva','Female',28,'Teacher','Brgy. Buhangin, Mandaluyong City, NCR',9368123456,'Maya',4.3);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -93,11 +95,12 @@ DROP TABLE IF EXISTS `driver`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `driver` (
   `driver_id` int NOT NULL,
-  `license_num` varchar(11) DEFAULT NULL,
+  `license_num` varchar(13) DEFAULT NULL,
   `driver_name` varchar(45) DEFAULT NULL,
   `gender` varchar(10) DEFAULT NULL,
   `age` int DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
+  `phone_number` bigint DEFAULT NULL,
   `date_of_employment` date DEFAULT NULL,
   `date_of_resignation` date DEFAULT NULL,
   `total_income` double DEFAULT NULL,
@@ -112,6 +115,7 @@ CREATE TABLE `driver` (
 
 LOCK TABLES `driver` WRITE;
 /*!40000 ALTER TABLE `driver` DISABLE KEYS */;
+INSERT INTO `driver` VALUES (1,'N03-12,123456','Alexander Mejia','Male',19,'24A J. Ruiz St. Brg. Salapan, San Juan City',9190000123,'2025-11-11',NULL,42000,4.7),(2,'N12-34-567890','Mark Angelo Cruz','Male',34,'Brgy. San Antonio, Pasig City, NCR',9175557890,'2023-02-15',NULL,385000,4.7),(3,'P98-76-543210','Liza Mae Navarro','Female',29,'Brgy. Poblacion, Makati City, NCR',9612345678,'2024-05-10',NULL,212500,4.5),(4,'R55-21-334455','Jerome D. Alcantara','Male',41,'Brgy. Dolores, Taytay, Rizal',9083456789,'2021-11-01','2025-07-31',640000,4.2),(5,'Q33-44-556677','Sheila Ann Dela Pena','Female',37,'Brgy. Dagat, Valenzuela City, NCR',9771234567,'2022-08-20',NULL,498300,4.8);
 /*!40000 ALTER TABLE `driver` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,6 +154,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
+INSERT INTO `transactions` VALUES (1,1,1,1,'2024-12-12','07:42:00','Universidad ng Pilipinas','De La Salle University','Cash',242.00,'Completed'),(2,2,2,2,'2025-11-05','08:15:00','DLSU Taft Gate, Malate, Manila','SM Mall of Asia, Pasay','GCash',165.00,'Completed'),(3,3,3,3,'2025-11-06','18:42:00','Ayala Malls Manila Bay, Pasay City','Solaire Manila','Card',120.00,'Completed'),(4,4,4,4,'2025-11-07','22:05:00','Glorietta 4, Makati','BGC High Street, Taguig','Cash',220.00,'Completed'),(5,5,5,5,'2025-11-08','07:30:00','Robinsons Manila','SM City Manila','Maya',140.00,'Completed');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -168,6 +173,7 @@ CREATE TABLE `vehicle` (
   `car_brand` varchar(50) DEFAULT NULL,
   `model_name` varchar(50) DEFAULT NULL,
   `color` varchar(30) DEFAULT NULL,
+  `number_of_seats` int DEFAULT NULL,
   `service_record` text,
   `fuel_type` varchar(20) DEFAULT NULL,
   `year_acquired` year DEFAULT NULL,
@@ -183,8 +189,17 @@ CREATE TABLE `vehicle` (
 
 LOCK TABLES `vehicle` WRITE;
 /*!40000 ALTER TABLE `vehicle` DISABLE KEYS */;
+INSERT INTO `vehicle` VALUES (1,1,'REG-2023-001','NBK3149','Dodge','Challenger','Black',NULL,'Regular maintenance up to date','Gasoline',2024),(2,2,'REG-2023-002','NDX4521','Toyota','Vios 1.3 XE','Silver',NULL,'10-km PMS at Toyota Manila Bay (2024-05-12)','Gasoline',2022),(3,3,'REG-2024-003','NAH3186','Honda','City 1.5 S','Crystal Black',NULL,'Brake pads replaced (2025-01-18)','Gasoline',2023),(4,4,'REG-2022-004','NBM7724','Mitsubishi','Xpander GLS','Titanium Gray',NULL,'40k-km service (2025-03-08)','Gasoline',2021),(5,5,'REG-2023-005','NCP6409','Hyundai','Accent 1.6 CRDi','Polar White',NULL,'Fuel filter change (2024-11-02)','Diesel',2022);
 /*!40000 ALTER TABLE `vehicle` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'ridehailing'
+--
+
+--
+-- Dumping routines for database 'ridehailing'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -195,4 +210,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-09 20:58:40
+-- Dump completed on 2025-11-13 21:03:04
