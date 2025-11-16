@@ -8,7 +8,8 @@ CREATE TABLE customer (
     address VARCHAR(100),
     phone_number BIGINT,
     payment_details VARCHAR(20),
-    average_rating DOUBLE
+    average_rating DOUBLE,
+    current_transaction INT(11) -- Added this one, HOWEVER - it is better to not add the foreign key yet to avoid circular referencing.
 );
 
 -- Create Driver Table
@@ -23,7 +24,8 @@ CREATE TABLE driver (
     date_of_employment DATE,
     date_of_resignation DATE,
     total_income DOUBLE,
-    average_rating DOUBLE
+    average_rating DOUBLE,
+    current_transaction INT(11) -- Added this one, HOWEVER - it is better to not add the foreign key yet to avoid circular referencing.
 );
 
 -- Create Vehicle Table
@@ -41,26 +43,6 @@ CREATE TABLE vehicle (
     year_acquired YEAR,
     FOREIGN KEY (driver_id) REFERENCES driver(driver_id)
 );
-
--- Create Bookings table
-CREATE TABLE booking (
-	booking_id INT(11) PRIMARY KEY,
-    booking_date DATE,
-    booking_time TIME,
-    customer_id INT(11),
-    customer_name VARCHAR(45),
-    driver_id INT(11),
-    driver_name VARCHAR(45),
-    plate_num VARCHAR(7),
-    pickup_point VARCHAR(100),
-    dropoff_point VARCHAR(100),
-    duration DOUBLE,
-    payment_status VARCHAR(20),
-    payment_mode VARCHAR(20),
-    driver_rating DOUBLE,
-    FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
-    FOREIGN KEY (driver_id) REFERENCES driver(driver_id)
-);
     
 -- Create Transactions Table
 CREATE TABLE transactions (
@@ -68,18 +50,20 @@ CREATE TABLE transactions (
     customer_id INT(11),
     driver_id INT(11),
     vehicle_id INT(11),
-    date DATE,
+    date DATE, 	
     time TIME,
     pickup_point VARCHAR(100),
     dropoff_point VARCHAR(100),
-    payment_method VARCHAR(20),
+    balance DOUBLE, -- CHANGED
     cost DECIMAL(10, 2),
     fulfillment_status VARCHAR(50),
     FOREIGN KEY (customer_id) REFERENCES customer(customer_id),
     FOREIGN KEY (driver_id) REFERENCES driver(driver_id),
     FOREIGN KEY (vehicle_id) REFERENCES vehicle(vehicle_id)
 );
-    
 
+-- NEW: References the "current_transaction" to the transactions_id. This avoids circular reasoning. 
+ALTER TABLE driver ADD FOREIGN KEY (current_transaction) REFERENCES transactions (transaction_id);
+ALTER TABLE customer ADD FOREIGN KEY (current_transaction) REFERENCES transactions (transaction_id);
 
 
