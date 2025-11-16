@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="300.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+    <top>
+        <HBox alignment="TOP_CENTER" prefHeight="22.0" prefWidth="389.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label fx:id="driverNameLabel" text="driverNameLabel" />
+                <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                <Label fx:id="balanceLabel" text="balanceLabel" />
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </HBox>
+    </top>
+    <center>
+        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Driver Menu">
+                    <padding>
+                        <Insets bottom="20.0" />
+                    </padding>
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Label>
+                <Button fx:id="viewRideButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="View Ride" />
+                <Button fx:id="manageAccountButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Manage Account" />
+                <Button fx:id="viewTransactionsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="View Transactions" />
+            <Button fx:id="viewVehicleButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="View Vehicle" />
+            <Button fx:id="viewReportsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="View Reports" />
+            <Button fx:id="changePasswordButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Change Password" />
+                <Button fx:id="logoutButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Logout" />
+            </children>
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+            </padding>
+        </VBox>
+    </center>
+</BorderPane>
