@@ -45,6 +45,34 @@ INSERT INTO `customer` VALUES (1,'John Doe','Male',28,'Computer Scientist','9958
 UNLOCK TABLES;
 
 --
+-- Table structure for table `customer_wallet`
+--
+
+DROP TABLE IF EXISTS `customer_wallet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `customer_wallet` (
+  `wallet_id` int NOT NULL AUTO_INCREMENT,
+  `customer_id` int DEFAULT NULL,
+  `balance` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`wallet_id`),
+  UNIQUE KEY `customer_id` (`customer_id`),
+  CONSTRAINT `customer_wallet_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
+  CONSTRAINT `customer_wallet_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customer_wallet`
+--
+
+LOCK TABLES `customer_wallet` WRITE;
+/*!40000 ALTER TABLE `customer_wallet` DISABLE KEYS */;
+INSERT INTO `customer_wallet` VALUES (1,1,1000.00),(2,2,2000.00),(3,3,750.00),(4,4,800.00),(5,5,1200.00);
+/*!40000 ALTER TABLE `customer_wallet` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `driver`
 --
 
@@ -74,6 +102,33 @@ LOCK TABLES `driver` WRITE;
 /*!40000 ALTER TABLE `driver` DISABLE KEYS */;
 INSERT INTO `driver` VALUES (1,'N03-12,123456','Alexander Mejia','Male',19,'9190000123','alexmejia@gmail.com','2025-11-11',NULL),(2,'N12-34-567890','Mark Angelo Cruz','Male',34,'9175557890','markcruz@gmail.com','2023-02-15',NULL),(3,'P98-76-543210','Liza Mae Navarro','Female',29,'9612345678','lizanavarro@gmail.com','2024-05-10',NULL),(4,'R55-21-334455','Jerome D. Alcantara','Male',41,'9083456789','jeromealcantara@gmail.com','2021-11-01','2025-07-31'),(5,'Q33-44-556677','Sheila Ann Dela Pena','Female',37,'9771234567','shieladelapena@gmail.com','2022-08-20',NULL);
 /*!40000 ALTER TABLE `driver` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `driver_wallet`
+--
+
+DROP TABLE IF EXISTS `driver_wallet`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `driver_wallet` (
+  `wallet_id` int NOT NULL AUTO_INCREMENT,
+  `driver_id` int DEFAULT NULL,
+  `balance` decimal(10,2) DEFAULT NULL,
+  PRIMARY KEY (`wallet_id`),
+  UNIQUE KEY `driver_id` (`driver_id`),
+  CONSTRAINT `driver_wallet_ibfk_1` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `driver_wallet`
+--
+
+LOCK TABLES `driver_wallet` WRITE;
+/*!40000 ALTER TABLE `driver_wallet` DISABLE KEYS */;
+INSERT INTO `driver_wallet` VALUES (1,1,242.00),(2,2,165.00),(3,3,120.00),(4,4,220.00),(5,5,140.00);
+/*!40000 ALTER TABLE `driver_wallet` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -147,35 +202,6 @@ LOCK TABLES `vehicle` WRITE;
 INSERT INTO `vehicle` VALUES (1,1,'REG-2023-001','NBK3149','Dodge','Challenger','Black',4,'Gasoline',2024),(2,2,'REG-2023-002','NDX4521','Toyota','Vios 1.3 XE','Silver',4,'Gasoline',2022),(3,3,'REG-2024-003','NAH3186','Honda','City 1.5 S','Crystal Black',4,'Gasoline',2023),(4,4,'REG-2022-004','NBM7724','Mitsubishi','Xpander GLS','Titanium Gray',6,'Gasoline',2021),(5,5,'REG-2023-005','NCP6409','Hyundai','Accent 1.6 CRDi','Polar White',4,'Diesel',2022);
 /*!40000 ALTER TABLE `vehicle` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `wallet`
---
-
-DROP TABLE IF EXISTS `wallet`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `wallet` (
-  `wallet_id` int NOT NULL AUTO_INCREMENT,
-  `customer_id` int DEFAULT NULL,
-  `balance` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (`wallet_id`),
-  UNIQUE KEY `uc_wallet_customer` (`customer_id`),
-  UNIQUE KEY `customer_id` (`customer_id`),
-  CONSTRAINT `wallet_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  CONSTRAINT `wallet_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `wallet`
---
-
-LOCK TABLES `wallet` WRITE;
-/*!40000 ALTER TABLE `wallet` DISABLE KEYS */;
-INSERT INTO `wallet` VALUES (1,1,1000.00),(2,2,2000.00),(3,3,750.00),(4,4,800.00),(5,5,1200.00);
-/*!40000 ALTER TABLE `wallet` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -186,4 +212,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-17 20:36:00
+-- Dump completed on 2025-11-17 20:56:00
