@@ -1,12 +1,15 @@
 package com.src.controllers;
 
 import com.src.model.*;
+import com.src.enumerations.*;
 
 public class PassengerController {
     private PassengerView view;
     private ArrayList<drivers> drivers;
     private Passenger currentUser;
     private ArrayList<Transaction> transactionHistory;
+
+    // DAOs
     private TransactionDAO transactionDAO;
     private PassengerDAO passengerDAO;
     private DriverDAO driverDAO;
@@ -27,10 +30,6 @@ public class PassengerController {
         return false;
     }
 
-    public void updatePassword(String newPassword) {
-        currentUser.updatePassword(newPassword);
-    }
-
     public void bookRide(String pickupLocation, String dropoffLocation, double cost) {
         int driverID;
 
@@ -40,7 +39,7 @@ public class PassengerController {
         } while (selectedDriver.get(id).isAvailable() == false);
 
         driverID = selectedDriver.getID();
-        int vehicleID = drivers.get(id).getCurrentVehicle().getVehicleID();
+        int vehicleID = selectedDriver.getVehicle.getVehicleID();
 
         double cost = 80 + Math.random() * (500 - 80);
 
@@ -58,4 +57,18 @@ public class PassengerController {
 
         System.out.println("Ride booked successfully.");
     }
+
+    public void cancelRide(Transaction transaction) {
+        if (transaction == null)
+            return;
+
+        transaction.setStatus(TransactionStatus.CANCELLED);
+        currentUser.removeCurrentTransaction();
+    }
+
+    public void updatePassword(String newPassword) {
+        if (this.currentDriver.checkPassword(newPassword) == false) {
+            currentDriver.setPassword(newPassword);
+            driverDAO.updateDrive(currentDriver);
+        }
 }
