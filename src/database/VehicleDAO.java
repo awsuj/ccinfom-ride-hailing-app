@@ -6,6 +6,8 @@ import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
+import static java.sql.DriverManager.getConnection;
+
 public class VehicleDAO {
     
     /**
