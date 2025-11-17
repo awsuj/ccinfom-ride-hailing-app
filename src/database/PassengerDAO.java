@@ -1,10 +1,14 @@
 package com.src.database;
 
+import com.src.model.Passenger;
+
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public interface PassengerDAO {
+import static java.sql.DriverManager.getConnection;
+
+public class PassengerDAO {
 
     /**
      * Add a new passenger into the database

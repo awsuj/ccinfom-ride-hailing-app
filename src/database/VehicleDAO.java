@@ -1,10 +1,12 @@
 package com.src.database;
 
+import com.src.model.Vehicle;
+
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public interface VehicleDAO {
+public class VehicleDAO {
     
     /**
      * Adds a new vehicle into the database
