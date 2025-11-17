@@ -1,45 +1,45 @@
 package com.src.controllers;
 
+import com.src.ViewHandler;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import java.io.IOException;
+
 public class AuthController {
 
-    private PassengerDAO passengerDAO;
-    private DriverDAO driverDAO;
-    private VehicleDAO vehicleDAO;
-    private TransactionDAO transactionDAO;
+    @FXML
+    private Button driverLoginButton;
 
-    public AuthController(
-            PassengerDAO passengerDAO,
-            DriverDAO driverDAO,
-            VehicleDAO vehicleDAO,
-            TransactionDAO transactionDAO
-    ) {
-        this.passengerDAO = passengerDAO;
-        this.driverDAO = driverDAO;
-        this.vehicleDAO = vehicleDAO;
-        this.transactionDAO = transactionDAO;
+    @FXML
+    private Button passengerLoginButton;
+
+    private ViewHandler viewHandler;
+
+    /**
+     * Initialize controller with the ViewHandler.
+     */
+    public void init(ViewHandler viewHandler) {
+        this.viewHandler = viewHandler;
     }
 
-    // starting point of the app
-    public void start() {
-        // call view
+    @FXML
+    void onDriverLoginClicked(ActionEvent event) {
+        try {
+            viewHandler.showDriverLogin();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Show error alert
+        }
     }
 
-    // selects passenger login, returns a PassengerController ready to use
-    public PassengerController selectPassengerLogin() {
-        return new PassengerController(
-                passengerDAO,
-                driverDAO,
-                vehicleDAO,
-                transactionDAO
-        );
-    }
-
-    // selects driver login, returns a DriverController ready to use
-    public DriverController selectDriverLogin() {
-        return new DriverController(
-                driverDAO,
-                vehicleDAO,
-                transactionDAO
-        );
+    @FXML
+    void onPassengerLoginClicked(ActionEvent event) {
+        try {
+            viewHandler.showPassengerLogin();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Show error alert
+        }
     }
 }
