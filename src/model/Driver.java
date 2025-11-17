@@ -1,11 +1,13 @@
 package com.src.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Driver model, extends User.
  */
 public class Driver extends User {
+
     private int driverID;
 
     // Fixed: Initialized ArrayList
@@ -13,6 +15,10 @@ public class Driver extends User {
     private Vehicle currentVehicle;
     private double totalEarnings;
     private boolean isAvailable;
+
+    // Added:
+    private Date dateOfEmployment;
+    private Date dateOfResignation;
 
     /**
      * Constructor for creating a new Driver.
@@ -29,7 +35,7 @@ public class Driver extends User {
      * Overloaded constructor for loading from DB.
      */
     public Driver(int driverID, String name, String email, String password, String phoneNumber,
-                  double totalEarnings, boolean isAvailable) {
+            double totalEarnings, boolean isAvailable) {
         super(name, email, password, phoneNumber);
         this.driverID = driverID;
         this.totalEarnings = totalEarnings;
@@ -84,5 +90,14 @@ public class Driver extends User {
 
     public void setAvailable(boolean available) {
         isAvailable = available;
+    }
+
+    // Added dates data:
+    public Date getDateOfEmployment() {
+        return this.dateOfEmployment;
+    }
+
+    public Date getDateOfResignation() {
+        return this.dateOfResignation;
     }
 }
