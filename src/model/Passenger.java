@@ -4,6 +4,7 @@ package com.src.model;
  * Passenger model, extends User.
  */
 public class Passenger extends User {
+    private String occupation;
 
     // Fixed: Initialized balance to prevent NullPointerException
     private Double balance = 0.0;
@@ -57,5 +58,9 @@ public class Passenger extends User {
 
     public void setPassengerID(int passengerID) {
         this.passengerID = passengerID;
+    }
+
+    public String getOccupation() {
+        return occupation;
     }
 }

@@ -11,8 +11,11 @@ public class User {
     protected String email;
     protected String password;
     protected String phoneNumber;
-    private Transaction currentTransaction;
-    private ArrayList<Transaction> transactionHistory = new ArrayList<>();
+    protected Transaction currentTransaction;
+    protected ArrayList<Transaction> transactionHistory = new ArrayList<>();
+
+    protected String gender;
+    protected int age;
 
     public User(String name, String email, String password, String phoneNumber) {
         this.name = name;
@@ -68,5 +71,13 @@ public class User {
 
     public void removeCurrentTransaction() {
         this.currentTransaction = null;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public int getAge() {
+        return age;
     }
 }
