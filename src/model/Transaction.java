@@ -9,7 +9,6 @@ import com.src.enumerations.TransactionStatus;
 public class Transaction {
     private int transactionID;
     private int passengerID; // Renamed from customerID for clarity
-    private int driverID;
     private int vehicleID;
     private String pickupLocation;
     private String dropoffLocation;
@@ -17,11 +16,10 @@ public class Transaction {
     private String time; // Consider using java.time.LocalDateTime instead of String
     private TransactionStatus status;
 
-    public Transaction(int transactionID, int passengerID, int driverID, int vehicleID,
+    public Transaction(int transactionID, int passengerID, int vehicleID,
                        String pickupLocation, String dropoffLocation, double cost, String time) {
         this.transactionID = transactionID;
         this.passengerID = passengerID;
-        this.driverID = driverID;
         this.vehicleID = vehicleID;
         this.pickupLocation = pickupLocation;
         this.dropoffLocation = dropoffLocation;
@@ -46,10 +44,6 @@ public class Transaction {
 
     public int getPassengerID() {
         return passengerID;
-    }
-
-    public int getDriverID() {
-        return driverID;
     }
 
     public int getVehicleID() {
