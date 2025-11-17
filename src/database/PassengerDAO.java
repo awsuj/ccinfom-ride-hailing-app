@@ -24,7 +24,7 @@ public class PassengerDAO {
             stmt.setString(2, passenger.getGender());
             stmt.setInt(3, passenger.getAge());
             stmt.setString(4, passenger.getOccupation());
-            stmt.setLong(5, passenger.getPhoneNumber());
+            stmt.setString(5, passenger.getPhoneNumber());
             stmt.setString(6, passenger.getEmail());
 
             stmt.executeUpdate();
