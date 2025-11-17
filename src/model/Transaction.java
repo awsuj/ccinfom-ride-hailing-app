@@ -1,5 +1,7 @@
 package com.src.model;
 
+import com.src.enumerations.*;
+
 public class Transaction {
     private int transactionID;
     private int customerID;
@@ -9,6 +11,7 @@ public class Transaction {
     private String dropoffLocation;
     private double cost;
     private String time;
+    private TransactionStatus status;
 
     public Transaction(int transactionID, int customerID, int driverID, int vehicleID,
                        String pickupLocation, String dropoffLocation, double cost, String time) {
@@ -20,5 +23,14 @@ public class Transaction {
         this.dropoffLocation = dropoffLocation;
         this.cost = cost;
         this.time = time;
+        this.status = TransactionStatus.ONGOING;
+    }
+
+    public void setStatus(TransactionStatus status) {
+        this.status = status;
+    }
+
+    public TransactionStatus getStatus() {
+        return status;
     }
 }

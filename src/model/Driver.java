@@ -3,6 +3,7 @@ package com.src.model;
 public class Driver extends User {
     private int driverID;
     private ArrayList<Vehicle> vehicles;
+    private Vehicle currentVehicle;
     private double totalEarnings;
     private boolean isAvailable;
 
@@ -26,5 +27,9 @@ public class Driver extends User {
 
     public ArrayList<Vehicle> getVehicles() {
         return vehicles;
+    }
+
+    public Vehicle getCurrentVehicle() {
+        return
     }
 }

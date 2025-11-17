@@ -5,6 +5,7 @@ public class User {
     private String email;
     private String password;
     private String phoneNumber;
+    private Transaction currentTransaction
     private ArrayList<Transaction> transactionHistory;
 
     public User(String name, String password, String phoneNumber) {
@@ -19,6 +20,22 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public String checkPassword(String password) {
+        if (password.equals(this.password)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void removeCurrentTransaction() {
+        this.currentTransaction = null;
     }
 
     public String updatePassword(String newPassword) {
