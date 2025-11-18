@@ -62,7 +62,7 @@
                               <Label text="Status:" GridPane.rowIndex="4" />
                               <Label fx:id="pickupValue" text="pickupValue" GridPane.columnIndex="1" />
                               <Label fx:id="dropoffValue" text="dropoffValue" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label text="driverNameValue" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                               <Label fx:id="driverNameValue" text="driverNameValue" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label fx:id="vehicleValue" text="vehicleValue" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label fx:id="statusValue" text="statusValue" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                            </children>

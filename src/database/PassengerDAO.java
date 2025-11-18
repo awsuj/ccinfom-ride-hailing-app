@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-import static java.sql.DriverManager.getConnection;
+import static com.src.database.DBConnection.getConnection;
 
 public class PassengerDAO {
 
@@ -40,16 +40,18 @@ public class PassengerDAO {
     }
 
     /**
-     * Finds the passenger based on email 
+     * Finds the passenger based on email
      * @param email the email of the passenger
      * @return the passenger that owns the email
      */
     public Passenger findByEmail(String email) {
-        String sql = "SELECT * FROM customer WHERE email = ?";
+        String sql = "SELECT * FROM customer c " +
+                "LEFT JOIN customer_wallet w ON c.customer_id = w.customer_id " +
+                "WHERE c.email = ?";
 
         try (Connection c = getConnection();
              PreparedStatement stmt = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            
+
             stmt.setString(1, email);
 
             try (ResultSet rs = stmt.executeQuery()) {
@@ -70,7 +72,9 @@ public class PassengerDAO {
      * @return the passenger that owns the ID
      */
     public Passenger findByID(int passengerID) {
-        String sql = "SELECT * FROM customer WHERE customer_id = ?";
+        String sql = "SELECT * FROM customer c " +
+                "LEFT JOIN customer_wallet w ON c.customer_id = w.customer_id " +
+                "WHERE c.customer_id = ?";
 
         try (Connection c = getConnection();
              PreparedStatement stmt = c.prepareStatement(sql)) {
@@ -99,7 +103,7 @@ public class PassengerDAO {
 
         try (Connection c = getConnection();
              PreparedStatement stmt = c.prepareStatement(sql);
-             Result rs = stmt.executeQuery()) {
+             ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 passengers.add(mapRowToPassenger(rs));
@@ -126,7 +130,7 @@ public class PassengerDAO {
             stmt.setString(2, passenger.getGender());
             stmt.setInt(3, passenger.getAge());
             stmt.setString(4, passenger.getOccupation());
-            stmt.setLong(5, passenger.getPhoneNumber());
+            stmt.setString(5, passenger.getPhoneNumber());
             stmt.setString(6, passenger.getEmail());
             stmt.setInt(7, passenger.getPassengerID()); //use the exisiting customer_id to locate the row
 
@@ -142,16 +146,31 @@ public class PassengerDAO {
      * Maps a row from the customer database and converts it into a Passenger object
      */
     private Passenger mapRowToPassenger(ResultSet rs) throws SQLException {
-        Passenger p = new Passenger();
-        p.setPassengerID(rs.getInt("customer_id"));
-        p.setName(rs.getString("customer_name"));
+        // We use the overloaded constructor from Passenger.java
+        Passenger p = new Passenger(
+                rs.getInt("customer_id"),
+                rs.getString("customer_name"),
+                rs.getString("email"),
+                "DUMMY_PASSWORD", // Password is not stored in DB (this is a security issue!)
+                rs.getString("phone_number"),
+                rs.getDouble("balance") // From the JOINED wallet table
+        );
         p.setGender(rs.getString("gender"));
         p.setAge(rs.getInt("age"));
         p.setOccupation(rs.getString("occupation"));
-        p.setPhoneNumber(rs.getString("phone_number"));
-        p.setEmail(rs.getString("email"));
-
         return p;
+    }
+
+    public void updatePassengerBalance(Passenger passenger) {
+        String sql = "UPDATE customer_wallet SET balance = ? WHERE customer_id = ?";
+        try (Connection c = getConnection();
+             PreparedStatement stmt = c.prepareStatement(sql)) {
+            stmt.setDouble(1, passenger.getBalance());
+            stmt.setInt(2, passenger.getPassengerID());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 

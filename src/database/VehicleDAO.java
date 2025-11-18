@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
 
-import static java.sql.DriverManager.getConnection;
+import static com.src.database.DBConnection.getConnection;
 
 public class VehicleDAO {
     
@@ -28,7 +28,7 @@ public class VehicleDAO {
             stmt.setString(6, vehicle.getColor());
             stmt.setInt(7, vehicle.getNumberOfSeats());
             stmt.setString(8, vehicle.getFuelType());
-            stmt.setString(9, vehicle.getYearAcquired());
+            stmt.setInt(9, vehicle.getYearAcquired());
 
             stmt.executeUpdate();
 
@@ -78,7 +78,7 @@ public class VehicleDAO {
         try (Connection c = getConnection();
             PreparedStatement stmt = c.prepareStatement(sql)) {
 
-            stmt.setInt(1, driver_id);
+            stmt.setInt(1, driverID);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -140,4 +140,22 @@ public class VehicleDAO {
 
         return v;
      }
+
+    public List<Vehicle> findAllByDriverID(int driverID) {
+        List<Vehicle> vehicles = new ArrayList<>();
+        String sql = "SELECT * FROM vehicle WHERE driver_id = ?";
+
+        try (Connection c = getConnection();
+             PreparedStatement stmt = c.prepareStatement(sql)) {
+            stmt.setInt(1, driverID);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    vehicles.add(mapRowToVehicle(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return vehicles;
+    }
 }
