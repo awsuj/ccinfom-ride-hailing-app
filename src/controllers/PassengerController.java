@@ -9,24 +9,25 @@ import com.src.enumerations.TransactionStatus;
 import com.src.model.Driver;
 import com.src.model.Passenger;
 import com.src.model.Transaction;
-import com.src.model.Vehicle; // Import Vehicle
+import com.src.model.Vehicle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*; // Import TableView
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-/**
- * FIXED: This controller is fully wired.
- * - All FXML fields are included.
- * - All handlers are included.
- * - Logic is updated for the new Transaction model (no driverID).
- */
 public class PassengerController {
 
     // --- DAOs ---
@@ -39,57 +40,77 @@ public class PassengerController {
     private ViewHandler viewHandler;
     private static Passenger currentPassenger;
 
-    // --- FXML Fields (Common) ---
+    // --- FXML Fields (Existing) ---
     @FXML private Label passengerNameLabel;
     @FXML private Label balanceLabel;
     @FXML private Button logoutButton;
     @FXML private Button changePasswordButton;
-
-    // --- FXML Fields (PassengerLogin) ---
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
     @FXML private Button loginButton;
     @FXML private Button backButton;
-
-    // --- FXML Fields (PassengerMenu) ---
+    @FXML private TextField ageField;
+    @FXML private TextField occupationField;
+    @FXML private ComboBox<String> genderCombo;
+    @FXML private Button signupButton;
+    @FXML private TextField pickupField;
+    @FXML private TextField dropoffField;
+    @FXML private Button requestRideButton;
     @FXML private Button rideButton;
     @FXML private Button viewTransactionsButton;
-
-    // --- FXML Fields (PassengerViewRide) ---
     @FXML private Label pickupValue;
     @FXML private Label dropoffValue;
     @FXML private Label driverNameValue;
     @FXML private Label vehicleValue;
     @FXML private Label statusValue;
     @FXML private Button cancelRideButton;
-
-    // --- FXML Fields (PassengerManageAccount) ---
     @FXML private TextField nameField;
     @FXML private TextField phoneField;
     @FXML private Button saveButton;
-
-    // --- FXML Fields (PassengerChangePassword) ---
     @FXML private PasswordField currentPasswordField;
     @FXML private PasswordField newPasswordField;
     @FXML private PasswordField confirmPasswordField;
     @FXML private Button updatePasswordButton;
+    @FXML private TextField cashInAmountField;
+    @FXML private Button confirmCashInButton;
+    @FXML private Button cashInMenuButton;
 
-    // --- FXML Fields (PassengerViewTransactions) ---
     @FXML private TableView<Transaction> transactionsTable;
+    @FXML private TableColumn<Transaction, String> colTime;
+    @FXML private TableColumn<Transaction, String> colPickup;
+    @FXML private TableColumn<Transaction, String> colDropoff;
+    @FXML private TableColumn<Transaction, Double> colPrice;
+    @FXML private TableColumn<Transaction, String> colStatus;
 
-    /**
-     * Initializes the controller.
-     */
+    // --- Report Fields (NEW) ---
+    @FXML private BarChart<String, Number> expenditureChart;
+    @FXML private Label avgExpenditureLabel;
+    @FXML private Label avgRidesLabel;
+    @FXML private Label completionRateLabel;
+    @FXML private Button viewReportsButton;
+
+    @FXML
+    public void initialize() {
+        if (genderCombo != null) {
+            genderCombo.getItems().addAll("Male", "Female", "Other");
+        }
+
+        if (transactionsTable != null) {
+            colTime.setCellValueFactory(new PropertyValueFactory<>("time"));
+            colPickup.setCellValueFactory(new PropertyValueFactory<>("pickupLocation"));
+            colDropoff.setCellValueFactory(new PropertyValueFactory<>("dropoffLocation"));
+            colPrice.setCellValueFactory(new PropertyValueFactory<>("cost"));
+            colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
+        }
+    }
+
     public void init(ViewHandler viewHandler, PassengerDAO pDAO, DriverDAO dDAO, VehicleDAO vDAO, TransactionDAO tDAO) {
         this.viewHandler = viewHandler;
         this.passengerDAO = pDAO;
         this.driverDAO = dDAO;
         this.vehicleDAO = vDAO;
         this.transactionDAO = tDAO;
-    }
 
-    @FXML
-    public void initialize() {
         if (currentPassenger != null) {
             if (passengerNameLabel != null) {
                 passengerNameLabel.setText("Welcome, " + currentPassenger.getName());
@@ -100,24 +121,217 @@ public class PassengerController {
             if (pickupValue != null) {
                 populateRideDetails();
             }
+            if (transactionsTable != null) {
+                transactionsTable.getItems().setAll(currentPassenger.getTransactionHistory());
+            }
+            if (nameField != null) {
+                nameField.setText(currentPassenger.getName());
+                phoneField.setText(currentPassenger.getPhoneNumber());
+                if (emailField != null) emailField.setText(currentPassenger.getEmail());
+            }
+            // Generate reports if on the reports page
+            if (expenditureChart != null) {
+                generateReports();
+            }
+        }
+    }
+
+    /**
+     * NEW: Generates statistics for the passenger.
+     */
+    private void generateReports() {
+        List<Transaction> history = currentPassenger.getTransactionHistory();
+        if (history == null || history.isEmpty()) {
+            return;
+        }
+
+        Map<YearMonth, Double> expenditurePerMonth = new HashMap<>();
+        Map<YearMonth, Integer> ridesPerMonth = new HashMap<>();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+        int completedRides = 0;
+        int totalRides = history.size();
+
+        for (Transaction t : history) {
+            if (t.getStatus() == TransactionStatus.COMPLETED) {
+                completedRides++;
+                try {
+                    LocalDate date = LocalDate.parse(t.getTime(), formatter);
+                    YearMonth ym = YearMonth.from(date);
+
+                    expenditurePerMonth.put(ym, expenditurePerMonth.getOrDefault(ym, 0.0) + t.getCost());
+                    ridesPerMonth.put(ym, ridesPerMonth.getOrDefault(ym, 0) + 1);
+                } catch (Exception e) {
+                    System.out.println("Error parsing date: " + t.getTime());
+                }
+            }
+        }
+
+        // Calculate Averages
+        int uniqueMonths = expenditurePerMonth.size();
+        double totalExpenditure = expenditurePerMonth.values().stream().mapToDouble(Double::doubleValue).sum();
+
+        double avgExpenditure = uniqueMonths > 0 ? totalExpenditure / uniqueMonths : 0.0;
+        double avgRides = uniqueMonths > 0 ? (double) completedRides / uniqueMonths : 0.0;
+        double completionRate = totalRides > 0 ? ((double) completedRides / totalRides) * 100 : 0.0;
+
+        // Update UI
+        avgExpenditureLabel.setText(String.format("Average Expenditure/Month: P%.2f", avgExpenditure));
+        avgRidesLabel.setText(String.format("Average Rides/Month: %.1f", avgRides));
+        completionRateLabel.setText(String.format("Completion Rate: %.1f%%", completionRate));
+
+        // Populate Chart
+        XYChart.Series<String, Number> series = new XYChart.Series<>();
+        series.setName("Expenditure");
+
+        expenditurePerMonth.keySet().stream().sorted().forEach(ym -> {
+            series.getData().add(new XYChart.Data<>(ym.toString(), expenditurePerMonth.get(ym)));
+        });
+
+        expenditureChart.getData().clear();
+        expenditureChart.getData().add(series);
+    }
+
+    // --- Navigation Handlers ---
+
+    @FXML
+    void onViewReportsClicked(ActionEvent event) throws IOException {
+        viewHandler.showPassengerReports();
+    }
+
+    @FXML
+    void onCashInMenuClicked(ActionEvent event) throws IOException {
+        viewHandler.showPassengerCashIn();
+    }
+
+    // ... (Keep all existing methods: onLoginClicked, onBookRideClicked, etc. EXACTLY as they were) ...
+
+    @FXML
+    void onConfirmCashInClicked(ActionEvent event) {
+        String amountText = cashInAmountField.getText();
+        if (amountText.isEmpty()) { System.out.println("Please enter an amount."); return; }
+        try {
+            double amount = Double.parseDouble(amountText);
+            if (amount <= 0) { System.out.println("Amount must be positive."); return; }
+            currentPassenger.addBalance(amount);
+            passengerDAO.updatePassengerBalance(currentPassenger);
+            balanceLabel.setText(String.format("Balance: P%.2f", currentPassenger.getBalance()));
+            System.out.println("Cash In Successful!");
+            cashInAmountField.clear();
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid amount format.");
+        }
+    }
+
+    @FXML
+    void onLoginClicked(ActionEvent event) {
+        String email = emailField.getText();
+        String password = passwordField.getText();
+        Passenger p = passengerDAO.findByEmail(email);
+        if (p != null && p.checkPassword(password)) {
+            System.out.println("Passenger login successful: " + p.getName());
+            currentPassenger = p;
+            List<Transaction> transactions = transactionDAO.findByPassenger(p.getPassengerID());
+            currentPassenger.getTransactionHistory().clear();
+            transactions.forEach(currentPassenger::addTransactionToHistory);
+            for (Transaction t : transactions) {
+                if (t.getStatus() == TransactionStatus.ONGOING) {
+                    currentPassenger.setCurrentTransaction(t);
+                    break;
+                }
+            }
+            try { viewHandler.showPassengerMenu(); } catch (IOException e) { e.printStackTrace(); }
+        } else {
+            System.out.println("Invalid login");
+        }
+    }
+
+    @FXML
+    void onBookRideClicked(ActionEvent event) {
+        try {
+            viewHandler.showPassengerBookRide();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void onRequestRideClicked(ActionEvent event) {
+        if (currentPassenger.getCurrentTransaction() != null) {
+            System.out.println("You already have an ongoing ride!");
+            try { viewHandler.showPassengerRideView(); } catch (IOException e) { e.printStackTrace(); }
+            return;
+        }
+        String pickupLocation = pickupField.getText();
+        String dropoffLocation = dropoffField.getText();
+        if (pickupLocation.isEmpty() || dropoffLocation.isEmpty()) { System.out.println("Please enter locations."); return; }
+
+        List<Driver> drivers = driverDAO.getAllDrivers();
+        List<Driver> availableDrivers = new ArrayList<>();
+        for (Driver d : drivers) if (d.isAvailable()) availableDrivers.add(d);
+        if (availableDrivers.isEmpty()) { System.out.println("No available drivers."); return; }
+
+        Driver selectedDriver = availableDrivers.get(new Random().nextInt(availableDrivers.size()));
+
+        if (selectedDriver.getVehicles() == null || selectedDriver.getVehicles().isEmpty()) {
+            selectedDriver.setVehicles((ArrayList<Vehicle>) vehicleDAO.findAllByDriverID(selectedDriver.getDriverID()));
+        }
+        if (selectedDriver.getCurrentVehicle() == null && !selectedDriver.getVehicles().isEmpty()) {
+            selectedDriver.setCurrentVehicle(selectedDriver.getVehicles().get(0));
+        }
+        if (selectedDriver.getCurrentVehicle() == null) { System.out.println("Selected driver has no vehicle."); return; }
+
+        double cost = 80 + new Random().nextDouble() * (500 - 80);
+        if (currentPassenger.getBalance() < cost) { System.out.println("Insufficient balance."); return; }
+
+        String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        Transaction newTransaction = new Transaction(0, currentPassenger.getPassengerID(), selectedDriver.getCurrentVehicle().getVehicleID(), pickupLocation, dropoffLocation, cost, time);
+
+        currentPassenger.setCurrentTransaction(newTransaction);
+        currentPassenger.addTransactionToHistory(newTransaction);
+        currentPassenger.deductBalance(cost);
+        selectedDriver.setCurrentTransaction(newTransaction);
+        selectedDriver.setAvailable(false);
+
+        transactionDAO.addTransaction(newTransaction);
+        passengerDAO.updatePassengerBalance(currentPassenger);
+        driverDAO.updateDriver(selectedDriver);
+        System.out.println("Ride booked successfully.");
+        try { viewHandler.showPassengerRideView(); } catch (IOException e) { e.printStackTrace(); }
+    }
+
+    @FXML
+    void onCancelRideClicked(ActionEvent event) {
+        Transaction ride = currentPassenger.getCurrentTransaction();
+        if (ride != null) {
+            ride.setStatus(TransactionStatus.CANCELLED);
+            currentPassenger.addBalance(ride.getCost());
+            Vehicle vehicle = vehicleDAO.findByID(ride.getVehicleID());
+            if (vehicle != null) {
+                Driver driver = driverDAO.findByID(vehicle.getDriverID());
+                if (driver != null) {
+                    driver.removeCurrentTransaction();
+                    driver.setAvailable(true);
+                    driverDAO.updateDriver(driver);
+                }
+            }
+            currentPassenger.removeCurrentTransaction();
+            transactionDAO.updateTransaction(ride);
+            passengerDAO.updatePassengerBalance(currentPassenger);
+            System.out.println("Ride cancelled.");
+            populateRideDetails();
         }
     }
 
     private void populateRideDetails() {
         Transaction ride = currentPassenger.getCurrentTransaction();
         if (ride != null) {
-            // Find the vehicle
             Vehicle vehicle = vehicleDAO.findByID(ride.getVehicleID());
-            Driver driver = null;
-            if (vehicle != null) {
-                // Find the driver using the vehicle's driverID
-                driver = driverDAO.findByID(vehicle.getDriverID());
-            }
-
+            Driver driver = (vehicle != null) ? driverDAO.findByID(vehicle.getDriverID()) : null;
             pickupValue.setText(ride.getPickupLocation());
             dropoffValue.setText(ride.getDropoffLocation());
             driverNameValue.setText(driver != null ? driver.getName() : "N/A");
-            // FIXED: Use getModelName()
             vehicleValue.setText(vehicle != null ? vehicle.getModelName() + " (" + vehicle.getPlateNumber() + ")" : "N/A");
             statusValue.setText(ride.getStatus().toString());
         } else {
@@ -130,183 +344,49 @@ public class PassengerController {
         }
     }
 
-    @FXML
-    void onLoginClicked(ActionEvent event) {
-        String email = emailField.getText();
-        String password = passwordField.getText();
-
-        Passenger p = passengerDAO.findByEmail(email);
-
-        if (p != null && p.checkPassword(password)) {
-            System.out.println("Passenger login successful: " + p.getName());
-            currentPassenger = p;
-
-            List<Transaction> transactions = transactionDAO.findByPassenger(p.getPassengerID());
-            transactions.forEach(currentPassenger::addTransactionToHistory);
-
-            // FIXED: Find ONGOING transaction
-            for (Transaction t : transactions) {
-                if (t.getStatus() == TransactionStatus.ONGOING) {
-                    currentPassenger.setCurrentTransaction(t);
-                    break;
-                }
-            }
-
-            try {
-                viewHandler.showPassengerMenu();
-            } catch (IOException e) {
-                e.printStackTrace();
+    // --- Standard Handlers ---
+    @FXML void onBackClicked(ActionEvent event) throws IOException { viewHandler.showAuthView(); }
+    @FXML void onLogoutClicked(ActionEvent event) throws IOException { currentPassenger = null; viewHandler.showAuthView(); }
+    @FXML void onManageAccountClicked(ActionEvent event) throws IOException { viewHandler.showPassengerManageAccount(); }
+    @FXML void onChangePasswordClicked(ActionEvent event) throws IOException { viewHandler.showPassengerChangePassword(); }
+    @FXML void onViewTransactionsClicked(ActionEvent event) throws IOException { viewHandler.showPassengerTransactions(); }
+    @FXML void onBackToMenuClicked(ActionEvent event) throws IOException { viewHandler.showPassengerMenu(); }
+    @FXML void onGoToSignupClicked(ActionEvent event) throws IOException { viewHandler.showPassengerSignup(); }
+    @FXML void onSignupClicked(ActionEvent event) {
+        try {
+            int age = Integer.parseInt(ageField.getText());
+            Passenger newPassenger = new Passenger(0, nameField.getText(), emailField.getText(), passwordField.getText(), phoneField.getText());
+            newPassenger.setAge(age);
+            newPassenger.setGender(genderCombo.getValue());
+            newPassenger.setOccupation(occupationField.getText());
+            passengerDAO.addPassenger(newPassenger);
+            System.out.println("Passenger account created successfully!");
+            viewHandler.showPassengerLogin();
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+    @FXML void onSaveClicked(ActionEvent event) {
+        currentPassenger.setName(nameField.getText());
+        currentPassenger.setPhoneNumber(phoneField.getText());
+        currentPassenger.setEmail(emailField.getText());
+        passengerDAO.updatePassenger(currentPassenger);
+        System.out.println("Account updated.");
+    }
+    @FXML void onUpdatePasswordClicked(ActionEvent event) {
+        if (currentPassenger == null) return;
+        String curP = currentPasswordField.getText();
+        String newP = newPasswordField.getText();
+        String conP = confirmPasswordField.getText();
+        if (currentPassenger.checkPassword(curP)) {
+            if (newP.equals(conP) && !newP.isEmpty()) {
+                currentPassenger.updatePassword(newP);
+                passengerDAO.updatePassenger(currentPassenger);
+                System.out.println("Password updated.");
+                currentPasswordField.clear(); newPasswordField.clear(); confirmPasswordField.clear();
+            } else {
+                System.out.println("New passwords do not match.");
             }
         } else {
-            System.out.println("Invalid login");
+            System.out.println("Wrong current password.");
         }
-    }
-
-    @FXML
-    void onBookRideClicked(ActionEvent event) {
-        if (currentPassenger.getCurrentTransaction() != null) {
-            System.out.println("You already have an ongoing ride!");
-            try {
-                viewHandler.showPassengerRideView();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return;
-        }
-
-        String pickupLocation = "Start Point";
-        String dropoffLocation = "End Point";
-
-        List<Driver> drivers = driverDAO.getAllDrivers();
-        Driver selectedDriver = drivers.stream().filter(Driver::isAvailable).findFirst().orElse(null);
-
-        if (selectedDriver == null) {
-            System.out.println("No available drivers.");
-            return;
-        }
-
-        if (selectedDriver.getVehicles() == null || selectedDriver.getVehicles().isEmpty()) {
-            selectedDriver.setVehicles((ArrayList<Vehicle>) vehicleDAO.findAllByDriverID(selectedDriver.getDriverID()));
-        }
-
-        if (selectedDriver.getCurrentVehicle() == null && !selectedDriver.getVehicles().isEmpty()) {
-            selectedDriver.setCurrentVehicle(selectedDriver.getVehicles().get(0));
-        }
-
-        if (selectedDriver.getCurrentVehicle() == null) {
-            System.out.println("Selected driver has no vehicle.");
-            return;
-        }
-
-        double cost = 80 + new Random().nextDouble() * (500 - 80);
-
-        if (currentPassenger.getBalance() < cost) {
-            System.out.println("Insufficient balance.");
-            return;
-        }
-
-        String time = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        int newTransactionID = (int) (System.currentTimeMillis() % 10000); // Mock ID
-
-        // FIXED: Constructor call no longer includes driverID
-        Transaction newTransaction = new Transaction(
-                newTransactionID,
-                currentPassenger.getPassengerID(),
-                selectedDriver.getCurrentVehicle().getVehicleID(),
-                pickupLocation,
-                dropoffLocation,
-                cost,
-                time
-        );
-
-        currentPassenger.setCurrentTransaction(newTransaction);
-        currentPassenger.addTransactionToHistory(newTransaction);
-        currentPassenger.deductBalance(cost);
-
-        selectedDriver.setCurrentTransaction(newTransaction);
-        selectedDriver.setAvailable(false);
-
-        transactionDAO.addTransaction(newTransaction);
-        passengerDAO.updatePassengerBalance(currentPassenger); // FIXED: Use balance-specific update
-        driverDAO.updateDriver(selectedDriver);
-
-        System.out.println("Ride booked successfully.");
-
-        try {
-            viewHandler.showPassengerRideView();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void onCancelRideClicked(ActionEvent event) {
-        Transaction ride = currentPassenger.getCurrentTransaction();
-        if (ride != null) {
-            ride.setStatus(TransactionStatus.CANCELLED);
-            currentPassenger.addBalance(ride.getCost()); // Refund
-
-            Vehicle vehicle = vehicleDAO.findByID(ride.getVehicleID());
-            if (vehicle != null) {
-                Driver driver = driverDAO.findByID(vehicle.getDriverID());
-                if (driver != null) {
-                    driver.removeCurrentTransaction();
-                    driver.setAvailable(true);
-                    driverDAO.updateDriver(driver);
-                }
-            }
-
-            currentPassenger.removeCurrentTransaction();
-            transactionDAO.updateTransaction(ride);
-            passengerDAO.updatePassengerBalance(currentPassenger); // FIXED: Use balance-specific update
-
-            System.out.println("Ride cancelled.");
-            populateRideDetails(); // Refresh view
-        }
-    }
-
-    // --- Other Handlers ---
-
-    @FXML
-    void onBackClicked(ActionEvent event) throws IOException {
-        viewHandler.showAuthView();
-    }
-
-    @FXML
-    void onLogoutClicked(ActionEvent event) throws IOException {
-        currentPassenger = null; // Log out
-        viewHandler.showAuthView();
-    }
-
-    @FXML
-    void onManageAccountClicked(ActionEvent event) throws IOException {
-        viewHandler.showPassengerManageAccount();
-    }
-
-    @FXML
-    void onChangePasswordClicked(ActionEvent event) throws IOException {
-        viewHandler.showPassengerChangePassword();
-    }
-
-    @FXML
-    void onViewTransactionsClicked(ActionEvent event) throws IOException {
-        viewHandler.showPassengerTransactions();
-    }
-
-    @FXML
-    void onSaveClicked(ActionEvent event) {
-        System.out.println("Saving account...");
-        // TODO: Get text from nameField, emailField, etc. and call passengerDAO.updatePassenger()
-    }
-
-    @FXML
-    void onUpdatePasswordClicked(ActionEvent event) {
-        System.out.println("Updating password...");
-        // TODO: Get passwords, check, and call passenger.updatePassword() & passengerDAO.updatePassenger()
-    }
-
-    @FXML
-    void onBackToMenuClicked(ActionEvent event) throws IOException {
-        viewHandler.showPassengerMenu();
     }
 }

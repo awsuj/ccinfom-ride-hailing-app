@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="450.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.src.controllers.DriverController">
+<BorderPane prefHeight="450.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.src.controllers.PassengerController">
     <top>
         <HBox alignment="TOP_CENTER" prefHeight="22.0" prefWidth="389.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-                <Label fx:id="driverNameLabel" text="driverNameLabel" />
+                <Label fx:id="passengerNameLabel" text="passengerNameLabel" />
                 <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                 <Label fx:id="balanceLabel" text="balanceLabel" />
             </children>
@@ -28,7 +28,7 @@
     <center>
         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
-                <Label text="Driver Reports">
+                <Label text="Passenger Reports">
                     <padding>
                         <Insets bottom="5.0" />
                     </padding>
@@ -39,7 +39,7 @@
 
                 <VBox alignment="CENTER_LEFT" spacing="5.0" style="-fx-background-color: #f4f4f4; -fx-background-radius: 5;">
                     <children>
-                        <Label fx:id="avgIncomeLabel" text="Average Income/Month: P0.00">
+                        <Label fx:id="avgExpenditureLabel" text="Average Expenditure/Month: P0.00">
                             <font><Font name="System Bold" size="13.0" /></font>
                         </Label>
                         <Label fx:id="avgRidesLabel" text="Average Rides/Month: 0">
@@ -54,12 +54,12 @@
                     </padding>
                 </VBox>
 
-                <BarChart fx:id="incomeChart" title="Monthly Income">
+                <BarChart fx:id="expenditureChart" title="Monthly Expenditure">
                     <xAxis>
                         <CategoryAxis label="Month" side="BOTTOM" />
                     </xAxis>
                     <yAxis>
-                        <NumberAxis label="Income" side="LEFT" />
+                        <NumberAxis label="Expenditure" side="LEFT" />
                     </yAxis>
                 </BarChart>
                 <Button fx:id="backButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBackToMenuClicked" text="Back" />

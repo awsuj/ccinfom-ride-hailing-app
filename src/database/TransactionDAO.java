@@ -10,27 +10,25 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * FIXED: This DAO matches the new SQL schema
- * which does NOT have a driver_id in the transactions table.
- */
 public class TransactionDAO {
 
+    // Define the time format used by your controllers
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public void addTransaction(Transaction transaction) {
-        // REMOVED driver_id from the query
+        // NOTE: driver_id is NOT in the query because it was removed from the 'transactions' table
         String sqlDataInsert = "INSERT INTO transactions (customer_id, vehicle_id, date, time, pickup_point, dropoff_point, cost, fulfillment_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sqlDataInsert, Statement.RETURN_GENERATED_KEYS)) {
 
+            // Parse the String time from the model to LocalDateTime
             LocalDateTime ldt = LocalDateTime.parse(transaction.getTime(), formatter);
 
             stmt.setInt(1, transaction.getPassengerID());
             stmt.setInt(2, transaction.getVehicleID());
-            stmt.setDate(3, Date.valueOf(ldt.toLocalDate()));
-            stmt.setTime(4, Time.valueOf(ldt.toLocalTime()));
+            stmt.setDate(3, Date.valueOf(ldt.toLocalDate())); // Set SQL DATE
+            stmt.setTime(4, Time.valueOf(ldt.toLocalTime())); // Set SQL TIME
             stmt.setString(5, transaction.getPickupLocation());
             stmt.setString(6, transaction.getDropoffLocation());
             stmt.setDouble(7, transaction.getCost());
@@ -38,6 +36,7 @@ public class TransactionDAO {
 
             stmt.executeUpdate();
 
+            // Retrieve the auto-generated ID
             try (ResultSet rs = stmt.getGeneratedKeys()) {
                 if (rs.next()) {
                     transaction.setTransactionID(rs.getInt(1));
@@ -64,7 +63,7 @@ public class TransactionDAO {
     }
 
     /**
-     * ADDED: Finds transactions for a specific passenger
+     * Finds all transactions for a specific passenger.
      */
     public List<Transaction> findByPassenger(int passengerID) {
         List<Transaction> list = new ArrayList<>();
@@ -85,8 +84,8 @@ public class TransactionDAO {
     }
 
     /**
-     * ADDED & REWRITTEN: Finds transactions by joining with the vehicle table
-     * to find the driver_id.
+     * Finds all transactions for a specific driver.
+     * Since 'transactions' table has no driver_id, we JOIN with 'vehicle' table.
      */
     public List<Transaction> findByDriver(int driverID) {
         List<Transaction> list = new ArrayList<>();
@@ -153,7 +152,6 @@ public class TransactionDAO {
 
     /**
      * Helper method to map a ResultSet row to a Transaction object.
-     * FIXED: Matches the Transaction(String time) constructor.
      */
     private Transaction mapRowToTransaction(ResultSet rs) throws SQLException {
         int id = rs.getInt("transaction_id");
@@ -163,14 +161,14 @@ public class TransactionDAO {
         String pickup = rs.getString("pickup_point");
         String dropoff = rs.getString("dropoff_point");
 
-        // Combine SQL DATE and TIME
+        // Combine SQL DATE and TIME columns into one LocalDateTime
         LocalDateTime ldt = rs.getTimestamp("time").toLocalDateTime().with(rs.getDate("date").toLocalDate());
         // Format it back into the String your model expects
         String timeString = ldt.format(formatter);
 
         TransactionStatus status = TransactionStatus.valueOf(rs.getString("fulfillment_status").toUpperCase());
 
-        // Use the correct constructor (no driverID)
+        // Use the constructor that matches your updated Transaction.java (no driverID)
         Transaction transaction = new Transaction(id, customerID, vehicleID, pickup, dropoff, cost, timeString);
         transaction.setStatus(status);
 

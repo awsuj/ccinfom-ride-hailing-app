@@ -35,8 +35,6 @@ public class ViewHandler {
      * Loads a view, sets its controller, and initializes it.
      */
     private <T> T loadView(String fxmlFile, Class<T> controllerClass) throws IOException {
-        // Note: Make sure your FXML files are in 'src/main/resources/com/src/view/'
-        // or configure your build path correctly.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/src/view/" + fxmlFile));
 
         Parent root = loader.load();
@@ -48,7 +46,6 @@ public class ViewHandler {
         } else if (controller instanceof PassengerController) {
             ((PassengerController) controller).init(this, passengerDAO, driverDAO, vehicleDAO, transactionDAO);
         } else if (controller instanceof DriverController) {
-            // UPDATED: Injected PassengerDAO
             ((DriverController) controller).init(this, driverDAO, vehicleDAO, transactionDAO, passengerDAO);
         }
 
@@ -56,6 +53,7 @@ public class ViewHandler {
         return controller;
     }
 
+    // --- Auth Views ---
     public void showAuthView() throws IOException {
         loadView("AuthView.fxml", AuthController.class);
     }
@@ -68,47 +66,74 @@ public class ViewHandler {
         loadView("DriverLogin.fxml", DriverController.class);
     }
 
+    // --- Signup Views (Added) ---
+    public void showPassengerSignup() throws IOException {
+        loadView("PassengerSignup.fxml", PassengerController.class);
+    }
+
+    public void showDriverSignup() throws IOException {
+        loadView("DriverSignup.fxml", DriverController.class);
+    }
+
+    // --- Passenger Views ---
     public void showPassengerMenu() throws IOException {
         loadView("PassengerMenu.fxml", PassengerController.class);
     }
 
-    public void showDriverMenu() throws IOException {
-        loadView("DriverMenu.fxml", DriverController.class);
+    public void showPassengerBookRide() throws IOException {
+        loadView("PassengerBookRide.fxml", PassengerController.class);
     }
 
     public void showPassengerRideView() throws IOException {
         loadView("PassengerViewRide.fxml", PassengerController.class);
     }
 
-    public void showDriverRideView() throws IOException {
-        loadView("DriverViewRide.fxml", DriverController.class);
-    }
-
-    // --- ADDED: Passenger Views ---
     public void showPassengerChangePassword() throws IOException {
         loadView("PassengerChangePassword.fxml", PassengerController.class);
     }
+
     public void showPassengerManageAccount() throws IOException {
         loadView("PassengerManageAccount.fxml", PassengerController.class);
     }
+
     public void showPassengerTransactions() throws IOException {
         loadView("PassengerViewTransactions.fxml", PassengerController.class);
     }
 
-    // --- ADDED: Driver Views ---
+    // --- Driver Views ---
+    public void showDriverMenu() throws IOException {
+        loadView("DriverMenu.fxml", DriverController.class);
+    }
+
+    public void showDriverRideView() throws IOException {
+        loadView("DriverViewRide.fxml", DriverController.class);
+    }
+
     public void showDriverChangePassword() throws IOException {
         loadView("DriverChangePassword.fxml", DriverController.class);
     }
+
     public void showDriverManageAccount() throws IOException {
         loadView("DriverManageAccount.fxml", DriverController.class);
     }
+
     public void showDriverReports() throws IOException {
         loadView("DriverViewReports.fxml", DriverController.class);
     }
+
     public void showDriverTransactions() throws IOException {
         loadView("DriverViewTransactions.fxml", DriverController.class);
     }
+
     public void showDriverVehicle() throws IOException {
         loadView("DriverViewVehicle.fxml", DriverController.class);
+    }
+
+    public void showPassengerCashIn() throws IOException {
+        loadView("PassengerCashIn.fxml", PassengerController.class);
+    }
+
+    public void showPassengerReports() throws IOException {
+        loadView("PassengerViewReports.fxml", PassengerController.class);
     }
 }

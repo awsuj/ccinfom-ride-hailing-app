@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="300.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="300.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.src.controllers.PassengerController">
    <top>
       <HBox alignment="TOP_CENTER" prefHeight="22.0" prefWidth="389.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -33,15 +33,16 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Button fx:id="bookRideButton" layoutX="30.0" layoutY="93.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Book Ride" />
-            <Button fx:id="viewRideButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="View Ride" />
-            <Button fx:id="viewTransactionsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="View Transactions" />
-            <Button fx:id="manageAccountButton" layoutX="30.0" layoutY="201.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Manage Account" />
-            <Button fx:id="changePasswordButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Change Password" />
-            <Button fx:id="logoutButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Logout" />
+            <Button fx:id="bookRideButton" layoutX="30.0" layoutY="93.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBookRideClicked" text="Book Ride" />
+            <Button fx:id="viewRideButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="View Ride" onAction="#onRequestRideClicked"/> <Button fx:id="viewTransactionsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onViewTransactionsClicked" text="View Transactions" />
+            <Button fx:id="viewReportsButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onViewReportsClicked" text="View Reports" />
+            <Button fx:id="cashInMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onCashInMenuClicked" text="Cash In" />
+            <Button fx:id="manageAccountButton" layoutX="30.0" layoutY="201.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onManageAccountClicked" text="Manage Account" />
+            <Button fx:id="changePasswordButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onChangePasswordClicked" text="Change Password" />
+            <Button fx:id="logoutButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onLogoutClicked" text="Logout" />
          </children>
          <padding>
-            <Insets bottom="10.0" left="20.0" right="20.0" top="30.0" />
+            <Insets bottom="10.0" left="10.0" right="20.0" top="30.0" />
          </padding>
       </VBox>
    </center>
