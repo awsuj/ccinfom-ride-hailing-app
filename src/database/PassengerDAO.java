@@ -15,7 +15,7 @@ public class PassengerDAO {
      * @param passenger the passenger to add
      */
     public void addPassenger(Passenger passenger) {
-        String sql = "INSERT INTO customer (customer_name, gender, age, occupation, phone_number, email) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO customer (customer_name, gender, age, occupation, phone_number, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection c = getConnection();
              PreparedStatement stmt = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -26,6 +26,7 @@ public class PassengerDAO {
             stmt.setString(4, passenger.getOccupation());
             stmt.setString(5, passenger.getPhoneNumber());
             stmt.setString(6, passenger.getEmail());
+            stmt.setString(7, passenger.getPassword());
 
             stmt.executeUpdate();
 
@@ -121,7 +122,7 @@ public class PassengerDAO {
      * @param passenger the passenger to be updated
      */
     public void updatePassenger(Passenger passenger) {
-        String sql = "UPDATE customer SET customer_name = ?, gender = ?, age = ?, occupation = ?, phone_number = ?, email = ? WHERE customer_id = ?";
+        String sql = "UPDATE customer SET customer_name = ?, gender = ?, age = ?, occupation = ?, phone_number = ?, email = ?, password = ? WHERE customer_id = ?";
 
         try (Connection c = getConnection();
              PreparedStatement stmt = c.prepareStatement(sql)) {
@@ -132,7 +133,8 @@ public class PassengerDAO {
             stmt.setString(4, passenger.getOccupation());
             stmt.setString(5, passenger.getPhoneNumber());
             stmt.setString(6, passenger.getEmail());
-            stmt.setInt(7, passenger.getPassengerID()); //use the exisiting customer_id to locate the row
+            stmt.setString(7, passenger.getPassword());
+            stmt.setInt(8, passenger.getPassengerID()); //use the exisiting customer_id to locate the row
 
             stmt.executeUpdate();
 
@@ -151,7 +153,7 @@ public class PassengerDAO {
                 rs.getInt("customer_id"),
                 rs.getString("customer_name"),
                 rs.getString("email"),
-                "DUMMY_PASSWORD", // Password is not stored in DB (this is a security issue!)
+                rs.getString("password"), 
                 rs.getString("phone_number"),
                 rs.getDouble("balance") // From the JOINED wallet table
         );
@@ -173,6 +175,7 @@ public class PassengerDAO {
         }
     }
 }
+
 
 
 
