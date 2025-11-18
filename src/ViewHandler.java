@@ -46,7 +46,7 @@ public class ViewHandler {
         } else if (controller instanceof PassengerController) {
             ((PassengerController) controller).init(this, passengerDAO, driverDAO, vehicleDAO, transactionDAO);
         } else if (controller instanceof DriverController) {
-            ((DriverController) controller).init(this, driverDAO, vehicleDAO, transactionDAO);
+            ((DriverController) controller).init(this, driverDAO, vehicleDAO, transactionDAO, passengerDAO);
         }
 
         primaryStage.setScene(new Scene(root));
@@ -81,5 +81,31 @@ public class ViewHandler {
         loadView("DriverViewRide.fxml", DriverController.class);
     }
 
-    // You can add more show... methods here for other views
+    // --- Passenger Views ---
+    public void showPassengerChangePassword() throws IOException {
+        loadView("PassengerChangePassword.fxml", PassengerController.class);
+    }
+    public void showPassengerManageAccount() throws IOException {
+        loadView("PassengerManageAccount.fxml", PassengerController.class);
+    }
+    public void showPassengerTransactions() throws IOException {
+        loadView("PassengerViewTransactions.fxml", PassengerController.class);
+    }
+
+    // --- Driver Views ---
+    public void showDriverChangePassword() throws IOException {
+        loadView("DriverChangePassword.fxml", DriverController.class);
+    }
+    public void showDriverManageAccount() throws IOException {
+        loadView("DriverManageAccount.fxml", DriverController.class);
+    }
+    public void showDriverReports() throws IOException {
+        loadView("DriverViewReports.fxml", DriverController.class);
+    }
+    public void showDriverTransactions() throws IOException {
+        loadView("DriverViewTransactions.fxml", DriverController.class);
+    }
+    public void showDriverVehicle() throws IOException {
+        loadView("DriverViewVehicle.fxml", DriverController.class);
+    }
 }
