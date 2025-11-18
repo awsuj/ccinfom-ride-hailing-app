@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class DriverDAO {
 
     public void addDriver(com.src.model.Driver driver) {
-        String sqlDataInsert = "INSERT INTO driver (license_num, driver_name, gender, age, phone_number, email, date_of_employment, date_of_resignation, password)" + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlDataInsert = "INSERT INTO driver (license_num, driver_name, gender, age, phone_number, email, password)" + "VALUES (?, ?, ?, ?, ?, ?, ?)"; // Removed DATES.
 
         try (Connection connection = DBConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sqlDataInsert, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, driver.getLicenseNum()); // Use LicenseNum
@@ -19,19 +19,6 @@ public class DriverDAO {
             stmt.setInt(4, driver.getAge());
             stmt.setString(5, driver.getPhoneNumber());
             stmt.setString(6, driver.getEmail());
-
-            // Handle String dates
-            if (driver.getDateOfEmployment() != null) {
-                stmt.setDate(7, java.sql.Date.valueOf(driver.getDateOfEmployment()));
-            } else {
-                stmt.setNull(7, Types.DATE);
-            }
-            if (driver.getDateOfResignation() != null) {
-                stmt.setDate(8, java.sql.Date.valueOf(driver.getDateOfResignation()));
-            } else {
-                stmt.setNull(8, Types.DATE);
-            }
-
             stmt.setString(9, driver.getPassword));
 
             stmt.executeUpdate();
@@ -106,7 +93,7 @@ public class DriverDAO {
     }
 
     public void updateDriver(Driver driver) {
-        String sql = "UPDATE driver SET " + "driver_name=?, gender=?, age=?, phone_number=?, email=?, " + "date_of_employment=?, date_of_resignation=?, license_num=?, password=? " + "WHERE driver_id=?"; // Use driver_id
+        String sql = "UPDATE driver SET " + "driver_name=?, gender=?, age=?, phone_number=?, email=?, " + "license_num=?, password=? " + "WHERE driver_id=?"; // Use driver_id
 
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -115,18 +102,6 @@ public class DriverDAO {
             stmt.setInt(3, driver.getAge());
             stmt.setString(4, driver.getPhoneNumber()); // Use setString
             stmt.setString(5, driver.getEmail());
-
-            if (driver.getDateOfEmployment() != null) {
-                stmt.setDate(6, java.sql.Date.valueOf(driver.getDateOfEmployment()));
-            } else {
-                stmt.setNull(6, Types.DATE);
-            }
-            if (driver.getDateOfResignation() != null) {
-                stmt.setDate(7, java.sql.Date.valueOf(driver.getDateOfResignation()));
-            } else {
-                stmt.setNull(7, Types.DATE);
-            }
-
             stmt.setString(8, driver.getLicenseNum());
             stmt.setString(9, driver.getPassword());
             stmt.setInt(10, driver.getDriverID()); // Use driver_id
@@ -151,11 +126,7 @@ public class DriverDAO {
         temp_driver.setGender(rs.getString("gender"));
         temp_driver.setAge(rs.getInt("age"));
 
-        Date emp = rs.getDate("date_of_employment");
-        temp_driver.setDateOfEmployment(emp != null ? emp.toString() : null);
-
-        Date resign = rs.getDate("date_of_resignation");
-        temp_driver.setDateOfResignation(resign != null ? resign.toString() : null);
+        // Removed Dates...again.
 
         return temp_driver;
     }
@@ -172,4 +143,5 @@ public class DriverDAO {
         }
     }
 }
+
 
