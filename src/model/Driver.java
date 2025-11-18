@@ -17,9 +17,7 @@ public class Driver extends User {
     private double totalEarnings;
     private boolean isAvailable;
 
-    // Added:
-    private LocalDate dateOfEmployment;
-    private LocalDate dateOfResignation;
+    // Removed dates.
 
     public Driver() {
         super(); // Calls User()
@@ -118,11 +116,5 @@ public class Driver extends User {
         this.licenseNum = licenseNum;
     }
 
-    public void setDateOfEmployment(String dateOfEmployment) {
-        this.dateOfEmployment = dateOfEmployment;
-    }
-
-    public void setDateOfResignation(String dateOfResignation) {
-        this.dateOfResignation = dateOfResignation;
-    }
+    //Removed dates setters and getters. 
 }
