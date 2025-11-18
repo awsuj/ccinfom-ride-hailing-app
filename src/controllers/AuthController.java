@@ -29,7 +29,6 @@ public class AuthController {
             viewHandler.showDriverLogin();
         } catch (IOException e) {
             e.printStackTrace();
-            // Show error alert
         }
     }
 
@@ -39,7 +38,6 @@ public class AuthController {
             viewHandler.showPassengerLogin();
         } catch (IOException e) {
             e.printStackTrace();
-            // Show error alert
         }
     }
 }

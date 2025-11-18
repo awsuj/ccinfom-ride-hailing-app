@@ -1,35 +1,29 @@
 package com.src.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Driver model, extends User.
+ * FIXED: Removed date fields, added licenseNum.
  */
 public class Driver extends User {
 
     private int driverID;
-    private String licenseNum;
-
-
+    private String licenseNum; // ADDED
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
     private Vehicle currentVehicle;
     private double totalEarnings;
     private boolean isAvailable;
 
-    // Added:
-    private String dateOfEmployment;
-    private String dateOfResignation;
-
+    // ADDED: No-arg constructor
     public Driver() {
-        super(); // Calls User()
+        super();
     }
 
     /**
      * Constructor for creating a new Driver.
      */
     public Driver(int driverID, String name, String email, String password, String phoneNumber) {
-        // Fixed: Added super() call
         super(name, email, password, phoneNumber);
         this.driverID = driverID;
         this.totalEarnings = 0;
@@ -40,10 +34,10 @@ public class Driver extends User {
      * Overloaded constructor for loading from DB.
      */
     public Driver(int driverID, String name, String email, String password, String phoneNumber,
-            double totalEarnings, boolean isAvailable) {
+                  double totalEarnings, boolean isAvailable) {
         super(name, email, password, phoneNumber);
         this.driverID = driverID;
-        this.totalEarnings = totalEarnings;
+        this.totalEarnings = (totalEarnings != 0.0) ? totalEarnings : 0.0;
         this.isAvailable = isAvailable;
     }
 
@@ -68,7 +62,6 @@ public class Driver extends User {
         this.vehicles.add(vehicle);
     }
 
-    // Fixed: Completed method
     public Vehicle getCurrentVehicle() {
         return currentVehicle;
     }
@@ -79,6 +72,10 @@ public class Driver extends User {
 
     public int getDriverID() {
         return driverID;
+    }
+
+    public void setDriverID(int driverID) {
+        this.driverID = driverID;
     }
 
     public double getTotalEarnings() {
@@ -97,32 +94,12 @@ public class Driver extends User {
         isAvailable = available;
     }
 
-    // Added dates data:
-    public String getDateOfEmployment() {
-        return this.dateOfEmployment;
-    }
-
-    public String getDateOfResignation() {
-        return this.dateOfResignation;
-    }
-
-    public void setDriverID(int driverID) {
-        this.driverID = driverID;
-    }
-
+    // ADDED: Getters/Setters for licenseNum
     public String getLicenseNum() {
         return licenseNum;
     }
 
     public void setLicenseNum(String licenseNum) {
         this.licenseNum = licenseNum;
-    }
-
-    public void setDateOfEmployment(String dateOfEmployment) {
-        this.dateOfEmployment = dateOfEmployment;
-    }
-
-    public void setDateOfResignation(String dateOfResignation) {
-        this.dateOfResignation = dateOfResignation;
     }
 }

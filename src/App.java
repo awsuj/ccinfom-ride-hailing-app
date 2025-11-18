@@ -1,6 +1,5 @@
 package com.src;
 
-import com.src.controllers.AuthController;
 import com.src.database.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -15,8 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // --- Initialize DAOs (using placeholder implementations) ---
-        // In a real app, these would connect to your database.
+        // --- Initialize DAOs ---
         PassengerDAO passengerDAO = new PassengerDAO();
         DriverDAO driverDAO = new DriverDAO();
         VehicleDAO vehicleDAO = new VehicleDAO();
