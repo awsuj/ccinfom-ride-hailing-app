@@ -30,6 +30,7 @@ CREATE TABLE `customer` (
   `occupation` varchar(45) DEFAULT NULL,
   `phone_number` varchar(11) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
+  `password` varchar(55) DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -40,7 +41,7 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (1,'John Doe','Male',28,'Computer Scientist','9958554011','johndoe@gmail.com'),(2,'Juan Dela Cruz','Male',24,'Student','9174567890','juandelacruz@gmail.com'),(3,'Maria Santos','Female',31,'Nurse','9223456781','mariasantos@gmail.com'),(4,'Ramon Reyes','Male',43,'Family Driver','9052345678','ramonreyes@gmail.com'),(5,'Aira Villanueva','Female',28,'Teacher','9368123456','airavillanueva@gmail.com');
+INSERT INTO `customer` VALUES (1,'John Doe','Male',28,'Computer Scientist','9958554011','johndoe@gmail.com','johndoe'),(2,'Juan Dela Cruz','Male',24,'Student','9174567890','juandelacruz@gmail.com','juandelacruz'),(3,'Maria Santos','Female',31,'Nurse','9223456781','mariasantos@gmail.com','mariasantos'),(4,'Ramon Reyes','Male',43,'Family Driver','9052345678','ramonreyes@gmail.com','ramonreyes'),(5,'Aira Villanueva','Female',28,'Teacher','9368123456','airavillanueva@gmail.com','airavillanueva');
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -57,8 +58,7 @@ CREATE TABLE `customer_wallet` (
   `balance` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`wallet_id`),
   UNIQUE KEY `customer_id` (`customer_id`),
-  CONSTRAINT `customer_wallet_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
-  CONSTRAINT `customer_wallet_ibfk_2` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
+  CONSTRAINT `customer_wallet_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -87,8 +87,7 @@ CREATE TABLE `driver` (
   `age` int DEFAULT NULL,
   `phone_number` varchar(11) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `date_of_employment` date DEFAULT NULL,
-  `date_of_resignation` date DEFAULT NULL,
+  `password` varchar(55) DEFAULT NULL,
   PRIMARY KEY (`driver_id`),
   UNIQUE KEY `license_num` (`license_num`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -100,7 +99,7 @@ CREATE TABLE `driver` (
 
 LOCK TABLES `driver` WRITE;
 /*!40000 ALTER TABLE `driver` DISABLE KEYS */;
-INSERT INTO `driver` VALUES (1,'N03-12,123456','Alexander Mejia','Male',19,'9190000123','alexmejia@gmail.com','2025-11-11',NULL),(2,'N12-34-567890','Mark Angelo Cruz','Male',34,'9175557890','markcruz@gmail.com','2023-02-15',NULL),(3,'P98-76-543210','Liza Mae Navarro','Female',29,'9612345678','lizanavarro@gmail.com','2024-05-10',NULL),(4,'R55-21-334455','Jerome D. Alcantara','Male',41,'9083456789','jeromealcantara@gmail.com','2021-11-01','2025-07-31'),(5,'Q33-44-556677','Sheila Ann Dela Pena','Female',37,'9771234567','shieladelapena@gmail.com','2022-08-20',NULL);
+INSERT INTO `driver` VALUES (1,'N03-12,123456','Alexander Mejia','Male',19,'9190000123','alexmejia@gmail.com','alexandermejia'),(2,'N12-34-567890','Mark Angelo Cruz','Male',34,'9175557890','markcruz@gmail.com','markcruz'),(3,'P98-76-543210','Liza Mae Navarro','Female',29,'9612345678','lizanavarro@gmail.com','lizanavarro'),(4,'R55-21-334455','Jerome D. Alcantara','Male',41,'9083456789','jeromealcantara@gmail.com','jeromealcantara'),(5,'Q33-44-556677','Sheila Ann Dela Pena','Female',37,'9771234567','shieladelapena@gmail.com','sheiladelapena');
 /*!40000 ALTER TABLE `driver` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,7 +161,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
-INSERT INTO `transactions` VALUES (1,1,1,'2024-12-12','07:42:00','Universidad ng Pilipinas','De La Salle University',242.00,'Completed'),(2,2,2,'2025-11-05','08:15:00','DLSU Taft Gate, Malate, Manila','SM Mall of Asia, Pasay',165.00,'Completed'),(3,3,3,'2025-11-06','18:42:00','Ayala Malls Manila Bay, Pasay City','Solaire Manila',120.00,'Completed'),(4,4,4,'2025-11-07','22:05:00','Glorietta 4, Makati','BGC High Street, Taguig',220.00,'Completed'),(5,5,5,'2025-11-08','07:30:00','Robinsons Manila','SM City Manila',140.00,'Completed');
+INSERT INTO `transactions` VALUES (1,1,1,'2024-12-12','07:42:00','Universidad ng Pilipinas','De La Salle University',242.00,'COMPLETED'),(2,2,2,'2025-11-05','08:15:00','DLSU Taft Gate, Malate, Manila','SM Mall of Asia, Pasay',165.00,'COMPLETED'),(3,3,3,'2025-11-06','18:42:00','Ayala Malls Manila Bay, Pasay City','Solaire Manila',120.00,'COMPLETED'),(4,4,4,'2025-11-07','22:05:00','Glorietta 4, Makati','BGC High Street, Taguig',220.00,'COMPLETED'),(5,5,5,'2025-11-08','07:30:00','Robinsons Manila','SM City Manila',140.00,'COMPLETED');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -188,6 +187,8 @@ CREATE TABLE `vehicle` (
   UNIQUE KEY `registration_num` (`registration_num`),
   UNIQUE KEY `plate_num` (`plate_num`),
   UNIQUE KEY `driver_id_2` (`driver_id`),
+  UNIQUE KEY `unique_driver` (`driver_id`),
+  UNIQUE KEY `uq_driver` (`driver_id`),
   KEY `driver_id` (`driver_id`),
   CONSTRAINT `vehicle_ibfk_1` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -212,4 +213,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-17 20:56:00
+-- Dump completed on 2025-11-18 14:01:33
