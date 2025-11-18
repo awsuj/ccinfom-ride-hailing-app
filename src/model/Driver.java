@@ -1,7 +1,7 @@
 package com.src.model;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Driver model, extends User.
@@ -17,8 +17,8 @@ public class Driver extends User {
     private boolean isAvailable;
 
     // Added:
-    private String dateOfEmployment;
-    private String dateOfResignation;
+    private LocalDate dateOfEmployment;
+    private LocalDate dateOfResignation;
 
     /**
      * Constructor for creating a new Driver.
@@ -93,11 +93,11 @@ public class Driver extends User {
     }
 
     // Added dates data:
-    public String getDateOfEmployment() {
+    public LocalDate getDateOfEmployment() {
         return this.dateOfEmployment;
     }
 
-    public String getDateOfResignation() {
+    public LocalDate getDateOfResignation() {
         return this.dateOfResignation;
     }
 
