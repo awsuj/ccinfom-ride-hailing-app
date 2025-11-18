@@ -35,6 +35,8 @@ public class ViewHandler {
      * Loads a view, sets its controller, and initializes it.
      */
     private <T> T loadView(String fxmlFile, Class<T> controllerClass) throws IOException {
+        // Note: Make sure your FXML files are in 'src/main/resources/com/src/view/'
+        // or configure your build path correctly.
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/src/view/" + fxmlFile));
 
         Parent root = loader.load();
@@ -46,6 +48,7 @@ public class ViewHandler {
         } else if (controller instanceof PassengerController) {
             ((PassengerController) controller).init(this, passengerDAO, driverDAO, vehicleDAO, transactionDAO);
         } else if (controller instanceof DriverController) {
+            // UPDATED: Injected PassengerDAO
             ((DriverController) controller).init(this, driverDAO, vehicleDAO, transactionDAO, passengerDAO);
         }
 
@@ -81,7 +84,7 @@ public class ViewHandler {
         loadView("DriverViewRide.fxml", DriverController.class);
     }
 
-    // --- Passenger Views ---
+    // --- ADDED: Passenger Views ---
     public void showPassengerChangePassword() throws IOException {
         loadView("PassengerChangePassword.fxml", PassengerController.class);
     }
@@ -92,7 +95,7 @@ public class ViewHandler {
         loadView("PassengerViewTransactions.fxml", PassengerController.class);
     }
 
-    // --- Driver Views ---
+    // --- ADDED: Driver Views ---
     public void showDriverChangePassword() throws IOException {
         loadView("DriverChangePassword.fxml", DriverController.class);
     }

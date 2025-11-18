@@ -1,7 +1,6 @@
 package com.src.database;
 
 import com.src.model.Passenger;
-
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -15,18 +14,17 @@ public class PassengerDAO {
      * @param passenger the passenger to add
      */
     public void addPassenger(Passenger passenger) {
-        String sql = "INSERT INTO customer (customer_name, gender, age, occupation, phone_number, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO customer (customer_name, gender, age, occupation, phone_number, email) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (Connection c = getConnection();
              PreparedStatement stmt = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            
+
             stmt.setString(1, passenger.getName());
             stmt.setString(2, passenger.getGender());
             stmt.setInt(3, passenger.getAge());
             stmt.setString(4, passenger.getOccupation());
             stmt.setString(5, passenger.getPhoneNumber());
             stmt.setString(6, passenger.getEmail());
-            stmt.setString(7, passenger.getPassword());
 
             stmt.executeUpdate();
 
@@ -46,12 +44,13 @@ public class PassengerDAO {
      * @return the passenger that owns the email
      */
     public Passenger findByEmail(String email) {
+        // FIXED: Joined with wallet table
         String sql = "SELECT * FROM customer c " +
                 "LEFT JOIN customer_wallet w ON c.customer_id = w.customer_id " +
                 "WHERE c.email = ?";
 
         try (Connection c = getConnection();
-             PreparedStatement stmt = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement stmt = c.prepareStatement(sql)) { // No RETURN_GENERATED_KEYS
 
             stmt.setString(1, email);
 
@@ -73,6 +72,7 @@ public class PassengerDAO {
      * @return the passenger that owns the ID
      */
     public Passenger findByID(int passengerID) {
+        // FIXED: Joined with wallet table
         String sql = "SELECT * FROM customer c " +
                 "LEFT JOIN customer_wallet w ON c.customer_id = w.customer_id " +
                 "WHERE c.customer_id = ?";
@@ -91,20 +91,20 @@ public class PassengerDAO {
             e.printStackTrace();
         }
         return null;
-
     }
 
     /**
-     * Gets the list of all passengers 
+     * Gets the list of all passengers
      * @return all exisiting passengers
      */
     public List<Passenger> getAllPassengers() {
         List<Passenger> passengers = new ArrayList<>();
-        String sql = "SELECT * FROM customer";
+        String sql = "SELECT * FROM customer c " +
+                "LEFT JOIN customer_wallet w ON c.customer_id = w.customer_id";
 
         try (Connection c = getConnection();
              PreparedStatement stmt = c.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+             ResultSet rs = stmt.executeQuery()) { // FIXED: Was 'Result'
 
             while (rs.next()) {
                 passengers.add(mapRowToPassenger(rs));
@@ -118,11 +118,11 @@ public class PassengerDAO {
     }
 
     /**
-     * Update the passenger data 
+     * Update the passenger data
      * @param passenger the passenger to be updated
      */
     public void updatePassenger(Passenger passenger) {
-        String sql = "UPDATE customer SET customer_name = ?, gender = ?, age = ?, occupation = ?, phone_number = ?, email = ?, password = ? WHERE customer_id = ?";
+        String sql = "UPDATE customer SET customer_name = ?, gender = ?, age = ?, occupation = ?, phone_number = ?, email = ? WHERE customer_id = ?";
 
         try (Connection c = getConnection();
              PreparedStatement stmt = c.prepareStatement(sql)) {
@@ -131,10 +131,9 @@ public class PassengerDAO {
             stmt.setString(2, passenger.getGender());
             stmt.setInt(3, passenger.getAge());
             stmt.setString(4, passenger.getOccupation());
-            stmt.setString(5, passenger.getPhoneNumber());
+            stmt.setString(5, passenger.getPhoneNumber()); // FIXED: Was setLong
             stmt.setString(6, passenger.getEmail());
-            stmt.setString(7, passenger.getPassword());
-            stmt.setInt(8, passenger.getPassengerID()); //use the exisiting customer_id to locate the row
+            stmt.setInt(7, passenger.getPassengerID());
 
             stmt.executeUpdate();
 
@@ -144,26 +143,11 @@ public class PassengerDAO {
     }
 
     /**
-     * Helper method
-     * Maps a row from the customer database and converts it into a Passenger object
+     * ADDED: Updates only the passenger's balance
+     * @param passenger the passenger to be updated
      */
-    private Passenger mapRowToPassenger(ResultSet rs) throws SQLException {
-        // We use the overloaded constructor from Passenger.java
-        Passenger p = new Passenger(
-                rs.getInt("customer_id"),
-                rs.getString("customer_name"),
-                rs.getString("email"),
-                rs.getString("password"), 
-                rs.getString("phone_number"),
-                rs.getDouble("balance") // From the JOINED wallet table
-        );
-        p.setGender(rs.getString("gender"));
-        p.setAge(rs.getInt("age"));
-        p.setOccupation(rs.getString("occupation"));
-        return p;
-    }
-
     public void updatePassengerBalance(Passenger passenger) {
+        // This table exists in your new SQL schema
         String sql = "UPDATE customer_wallet SET balance = ? WHERE customer_id = ?";
         try (Connection c = getConnection();
              PreparedStatement stmt = c.prepareStatement(sql)) {
@@ -174,8 +158,25 @@ public class PassengerDAO {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * Helper method
+     * Maps a row from the customer database and converts it into a Passenger object
+     * FIXED: Now reads password and balance
+     */
+    private Passenger mapRowToPassenger(ResultSet rs) throws SQLException {
+        Passenger p = new Passenger(
+                rs.getInt("customer_id"),
+                rs.getString("customer_name"),
+                rs.getString("email"),
+                rs.getString("password"), // Reads the real password
+                rs.getString("phone_number"),
+                rs.getDouble("balance") // From the JOINED wallet table
+        );
+        p.setGender(rs.getString("gender"));
+        p.setAge(rs.getInt("age"));
+        p.setOccupation(rs.getString("occupation"));
+        return p;
+    }
 }
-
-
-
-

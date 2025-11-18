@@ -1,23 +1,18 @@
 package com.src.model;
 
-/**
- * Passenger model, extends User.
- */
 public class Passenger extends User {
     private String occupation;
-
-    // Fixed: Initialized balance to prevent NullPointerException
     private Double balance = 0.0;
-    private int passengerID; // Added passengerID based on DAO
+    private int passengerID;
 
     public Passenger() {
+        super(); // Calls no-arg User constructor
     }
 
     /**
      * Constructor for creating a new Passenger.
      */
     public Passenger(int passengerID, String name, String email, String password, String phoneNumber) {
-        // Fixed: Added super() call to initialize base User fields
         super(name, email, password, phoneNumber);
         this.passengerID = passengerID;
         this.balance = 0.0; // Default balance
@@ -25,11 +20,12 @@ public class Passenger extends User {
 
     /**
      * Overloaded constructor for loading from DB.
+     * This is used by the DAO.
      */
     public Passenger(int passengerID, String name, String email, String password, String phoneNumber, Double balance) {
         super(name, email, password, phoneNumber);
         this.passengerID = passengerID;
-        this.balance = balance;
+        this.balance = (balance != null) ? balance : 0.0;
     }
 
     public void addBalance(Double amount) {
@@ -44,10 +40,8 @@ public class Passenger extends User {
         }
     }
 
-    // This method is already in the User class, but if you want to override:
     @Override
     public void updatePassword(String password) {
-        // Use the setter from the base class
         super.setPassword(password);
     }
 
@@ -70,6 +64,4 @@ public class Passenger extends User {
     public void setOccupation(String occupation) {
         this.occupation = occupation;
     }
-
-
 }
