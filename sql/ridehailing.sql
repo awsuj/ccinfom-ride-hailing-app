@@ -87,8 +87,6 @@ CREATE TABLE `driver` (
   `age` int DEFAULT NULL,
   `phone_number` varchar(11) DEFAULT NULL,
   `email` varchar(45) DEFAULT NULL,
-  `date_of_employment` date DEFAULT NULL,
-  `date_of_resignation` date DEFAULT NULL,
   `password` varchar(55) DEFAULT NULL,
   PRIMARY KEY (`driver_id`),
   UNIQUE KEY `license_num` (`license_num`)
@@ -101,7 +99,7 @@ CREATE TABLE `driver` (
 
 LOCK TABLES `driver` WRITE;
 /*!40000 ALTER TABLE `driver` DISABLE KEYS */;
-INSERT INTO `driver` VALUES (1,'N03-12,123456','Alexander Mejia','Male',19,'9190000123','alexmejia@gmail.com','2025-11-11',NULL,'alexandermejia'),(2,'N12-34-567890','Mark Angelo Cruz','Male',34,'9175557890','markcruz@gmail.com','2023-02-15',NULL,'markcruz'),(3,'P98-76-543210','Liza Mae Navarro','Female',29,'9612345678','lizanavarro@gmail.com','2024-05-10',NULL,'lizanavarro'),(4,'R55-21-334455','Jerome D. Alcantara','Male',41,'9083456789','jeromealcantara@gmail.com','2021-11-01','2025-07-31','jeromealcantara'),(5,'Q33-44-556677','Sheila Ann Dela Pena','Female',37,'9771234567','shieladelapena@gmail.com','2022-08-20',NULL,'sheiladelapena');
+INSERT INTO `driver` VALUES (1,'N03-12,123456','Alexander Mejia','Male',19,'9190000123','alexmejia@gmail.com','alexandermejia'),(2,'N12-34-567890','Mark Angelo Cruz','Male',34,'9175557890','markcruz@gmail.com','markcruz'),(3,'P98-76-543210','Liza Mae Navarro','Female',29,'9612345678','lizanavarro@gmail.com','lizanavarro'),(4,'R55-21-334455','Jerome D. Alcantara','Male',41,'9083456789','jeromealcantara@gmail.com','jeromealcantara'),(5,'Q33-44-556677','Sheila Ann Dela Pena','Female',37,'9771234567','shieladelapena@gmail.com','sheiladelapena');
 /*!40000 ALTER TABLE `driver` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,4 +213,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-18 13:42:47
+-- Dump completed on 2025-11-18 14:01:33
