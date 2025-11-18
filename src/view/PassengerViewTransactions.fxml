@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="300.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="300.0" prefWidth="463.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.src.controllers.PassengerController">
     <top>
         <HBox alignment="TOP_CENTER" prefHeight="22.0" prefWidth="389.0" spacing="10.0" BorderPane.alignment="CENTER">
             <children>
@@ -44,7 +44,7 @@
                         <TableColumn prefWidth="77.0" text="Status" />
                     </columns>
                 </TableView>
-                <Button fx:id="backButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Back" />
+                <Button fx:id="backButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onBackToMenuClicked" text="Back" />
             </children>
             <padding>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
