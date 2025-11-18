@@ -9,6 +9,7 @@ import java.util.Date;
 public class Driver extends User {
 
     private int driverID;
+    private String licenseNum;
 
 
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
@@ -19,6 +20,10 @@ public class Driver extends User {
     // Added:
     private String dateOfEmployment;
     private String dateOfResignation;
+
+    public Driver() {
+        super(); // Calls User()
+    }
 
     /**
      * Constructor for creating a new Driver.
@@ -103,5 +108,21 @@ public class Driver extends User {
 
     public void setDriverID(int driverID) {
         this.driverID = driverID;
+    }
+
+    public String getLicenseNum() {
+        return licenseNum;
+    }
+
+    public void setLicenseNum(String licenseNum) {
+        this.licenseNum = licenseNum;
+    }
+
+    public void setDateOfEmployment(String dateOfEmployment) {
+        this.dateOfEmployment = dateOfEmployment;
+    }
+
+    public void setDateOfResignation(String dateOfResignation) {
+        this.dateOfResignation = dateOfResignation;
     }
 }
