@@ -148,7 +148,7 @@ public class PassengerDAO {
         p.setGender(rs.getString("gender"));
         p.setAge(rs.getInt("age"));
         p.setOccupation(rs.getString("occupation"));
-        p.setPhoneNumber(rs.getLong("phone_number"));
+        p.setPhoneNumber(rs.getString("phone_number"));
         p.setEmail(rs.getString("email"));
 
         return p;

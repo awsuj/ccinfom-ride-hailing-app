@@ -18,9 +18,9 @@ public class App extends Application {
         // --- Initialize DAOs (using placeholder implementations) ---
         // In a real app, these would connect to your database.
         PassengerDAO passengerDAO = new PassengerDAO();
-        DriverDAO driverDAO = new DriverDAOImpl();
-        VehicleDAO vehicleDAO = new VehicleDAOImpl();
-        TransactionDAO transactionDAO = new TransactionDAOImpl();
+        DriverDAO driverDAO = new DriverDAO();
+        VehicleDAO vehicleDAO = new VehicleDAO();
+        TransactionDAO transactionDAO = new TransactionDAO();
 
         // --- Initialize ViewHandler ---
         // The ViewHandler will manage loading FXML and switching scenes.

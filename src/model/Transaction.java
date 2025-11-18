@@ -46,6 +46,13 @@ public class Transaction {
         return passengerID;
     }
 
+    /*
+    PLACEHOLDER METHOD!!!!
+     */
+    public int getDriverID() {
+        return 1;
+    }
+
     public int getVehicleID() {
         return vehicleID;
     }

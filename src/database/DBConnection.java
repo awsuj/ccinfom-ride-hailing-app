@@ -1,4 +1,4 @@
-package com.ridehailing.database;
+package com.src.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

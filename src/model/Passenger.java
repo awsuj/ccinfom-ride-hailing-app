@@ -10,6 +10,9 @@ public class Passenger extends User {
     private Double balance = 0.0;
     private int passengerID; // Added passengerID based on DAO
 
+    public Passenger() {
+    }
+
     /**
      * Constructor for creating a new Passenger.
      */
@@ -63,4 +66,10 @@ public class Passenger extends User {
     public String getOccupation() {
         return occupation;
     }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+
 }

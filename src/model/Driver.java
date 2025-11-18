@@ -10,15 +10,15 @@ public class Driver extends User {
 
     private int driverID;
 
-    // Fixed: Initialized ArrayList
+
     private ArrayList<Vehicle> vehicles = new ArrayList<>();
     private Vehicle currentVehicle;
     private double totalEarnings;
     private boolean isAvailable;
 
     // Added:
-    private Date dateOfEmployment;
-    private Date dateOfResignation;
+    private String dateOfEmployment;
+    private String dateOfResignation;
 
     /**
      * Constructor for creating a new Driver.
@@ -93,11 +93,15 @@ public class Driver extends User {
     }
 
     // Added dates data:
-    public Date getDateOfEmployment() {
+    public String getDateOfEmployment() {
         return this.dateOfEmployment;
     }
 
-    public Date getDateOfResignation() {
+    public String getDateOfResignation() {
         return this.dateOfResignation;
+    }
+
+    public void setDriverID(int driverID) {
+        this.driverID = driverID;
     }
 }
