@@ -163,7 +163,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
-INSERT INTO `transactions` VALUES (1,1,1,'2024-12-12','07:42:00','Universidad ng Pilipinas','De La Salle University',242.00,'Completed'),(2,2,2,'2025-11-05','08:15:00','DLSU Taft Gate, Malate, Manila','SM Mall of Asia, Pasay',165.00,'Completed'),(3,3,3,'2025-11-06','18:42:00','Ayala Malls Manila Bay, Pasay City','Solaire Manila',120.00,'Completed'),(4,4,4,'2025-11-07','22:05:00','Glorietta 4, Makati','BGC High Street, Taguig',220.00,'Completed'),(5,5,5,'2025-11-08','07:30:00','Robinsons Manila','SM City Manila',140.00,'Completed');
+INSERT INTO `transactions` VALUES (1,1,1,'2024-12-12','07:42:00','Universidad ng Pilipinas','De La Salle University',242.00,'COMPLETED'),(2,2,2,'2025-11-05','08:15:00','DLSU Taft Gate, Malate, Manila','SM Mall of Asia, Pasay',165.00,'COMPLETED'),(3,3,3,'2025-11-06','18:42:00','Ayala Malls Manila Bay, Pasay City','Solaire Manila',120.00,'COMPLETED'),(4,4,4,'2025-11-07','22:05:00','Glorietta 4, Makati','BGC High Street, Taguig',220.00,'COMPLETED'),(5,5,5,'2025-11-08','07:30:00','Robinsons Manila','SM City Manila',140.00,'COMPLETED');
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -215,4 +215,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-18 12:48:17
+-- Dump completed on 2025-11-18 13:42:47
