@@ -11,10 +11,7 @@ import com.src.model.Passenger;
 import com.src.model.Transaction;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -58,6 +55,20 @@ public class PassengerController {
     @FXML private Label statusValue;
     @FXML private Button cancelRideButton;
 
+    // --- FXML Fields (PassengerManageAccount) ---
+    @FXML private TextField nameField;
+    @FXML private TextField phoneField;
+    @FXML private Button saveButton;
+
+    // --- FXML Fields (PassengerChangePassword) ---
+    @FXML private PasswordField currentPasswordField;
+    @FXML private PasswordField newPasswordField;
+    @FXML private PasswordField confirmPasswordField;
+    @FXML private Button updatePasswordButton;
+
+    // --- FXML Fields (PassengerViewTransactions) ---
+    @FXML private TableView<Transaction> transactionsTable;
+
     /**
      * Initializes the controller. This is called by the ViewHandler.
      */
@@ -99,7 +110,7 @@ public class PassengerController {
             pickupValue.setText(ride.getPickupLocation());
             dropoffValue.setText(ride.getDropoffLocation());
             driverNameValue.setText(driver != null ? driver.getName() : "N/A");
-            vehicleValue.setText(vehicle != null ? vehicle.getModel() + " (" + vehicle.getPlateNumber() + ")" : "N/A");
+            vehicleValue.setText(vehicle != null ? vehicle.getModelName() + " (" + vehicle.getPlateNumber() + ")" : "N/A");
             statusValue.setText(ride.getStatus().toString());
         } else {
             // Handle no current ride
@@ -129,6 +140,12 @@ public class PassengerController {
             List<Transaction> transactions = transactionDAO.findByPassenger(p.getPassengerID());
             transactions.forEach(currentPassenger::addTransactionToHistory);
             // TODO: Find ONGOING transaction and set as current
+            for (Transaction t : transactions) {
+                if (t.getStatus() == com.src.enumerations.TransactionStatus.ONGOING) {
+                    currentPassenger.setCurrentTransaction(t);
+                    break;
+                }
+            }
 
             try {
                 viewHandler.showPassengerMenu();
@@ -250,5 +267,38 @@ public class PassengerController {
         }
     }
 
-    // TODO: Implement other handlers
+    @FXML
+    void onManageAccountClicked(ActionEvent event) throws IOException {
+        viewHandler.showPassengerManageAccount();
+    }
+
+    @FXML
+    void onChangePasswordClicked(ActionEvent event) throws IOException {
+        viewHandler.showPassengerChangePassword();
+    }
+
+    @FXML
+    void onViewTransactionsClicked(ActionEvent event) throws IOException {
+        viewHandler.showPassengerTransactions();
+    }
+
+    // --- Handlers for the sub-pages ---
+
+    @FXML
+    void onSaveClicked(ActionEvent event) {
+        // TODO: Implement save logic
+        System.out.println("Saving account...");
+    }
+
+    @FXML
+    void onUpdatePasswordClicked(ActionEvent event) {
+        // TODO: Implement password change logic
+        System.out.println("Updating password...");
+    }
+
+    // This one handler can be used by all sub-pages to return
+    @FXML
+    void onBackToMenuClicked(ActionEvent event) throws IOException {
+        viewHandler.showPassengerMenu();
+    }
 }
