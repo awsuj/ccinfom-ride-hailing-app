@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class DriverDAO {
 
     public void addDriver(com.src.model.Driver driver) {
-        String sqlDataInsert = "INSERT INTO driver (license_num, driver_name, gender, age, phone_number, email, date_of_employment, date_of_resignation)" + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sqlDataInsert = "INSERT INTO driver (license_num, driver_name, gender, age, phone_number, email, date_of_employment, date_of_resignation, password)" + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DBConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sqlDataInsert, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, driver.getLicenseNum()); // Use LicenseNum
@@ -31,6 +31,8 @@ public class DriverDAO {
             } else {
                 stmt.setNull(8, Types.DATE);
             }
+
+            stmt.setString(9, driver.getPassword));
 
             stmt.executeUpdate();
 
@@ -104,7 +106,7 @@ public class DriverDAO {
     }
 
     public void updateDriver(Driver driver) {
-        String sql = "UPDATE driver SET " + "driver_name=?, gender=?, age=?, phone_number=?, email=?, " + "date_of_employment=?, date_of_resignation=?, license_num=? " + "WHERE driver_id=?"; // Use driver_id
+        String sql = "UPDATE driver SET " + "driver_name=?, gender=?, age=?, phone_number=?, email=?, " + "date_of_employment=?, date_of_resignation=?, license_num=?, password=? " + "WHERE driver_id=?"; // Use driver_id
 
         try (Connection conn = DBConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -126,7 +128,8 @@ public class DriverDAO {
             }
 
             stmt.setString(8, driver.getLicenseNum());
-            stmt.setInt(9, driver.getDriverID()); // Use driver_id
+            stmt.setString(9, driver.getPassword());
+            stmt.setInt(10, driver.getDriverID()); // Use driver_id
 
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -139,7 +142,7 @@ public class DriverDAO {
                 rs.getInt("driver_id"),
                 rs.getString("driver_name"),
                 rs.getString("email"),
-                "DUMMY_PASSWORD", // Same password issue
+                rs.getString("password"),
                 rs.getString("phone_number"),
                 rs.getDouble("balance"), // From JOINED wallet
                 true // Default availability
@@ -169,3 +172,4 @@ public class DriverDAO {
         }
     }
 }
+
