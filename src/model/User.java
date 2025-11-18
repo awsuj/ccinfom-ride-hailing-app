@@ -17,6 +17,8 @@ public class User {
     protected String gender;
     protected int age;
 
+    public User() {}
+
     public User(String name, String email, String password, String phoneNumber) {
         this.name = name;
         this.email = email;
