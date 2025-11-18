@@ -34,6 +34,10 @@ public class Transaction {
         this.status = status;
     }
 
+    public void setTransactionID(int transactionID) {
+        this.transactionID = transactionID;
+    }
+
     public TransactionStatus getStatus() {
         return status;
     }
